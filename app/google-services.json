@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "572672404142",
+    "firebase_url": "https://wallpaper-5567c.firebaseio.com",
+    "project_id": "wallpaper-5567c",
+    "storage_bucket": "wallpaper-5567c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572672404142:android:c15ec018e5a408d3831b3f",
+        "android_client_info": {
+          "package_name": "com.napps.wallpaper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572672404142-5ipq7cs83hl87nhgsggiqjngq13kguar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQPHiqVs_fBpuXFEiwRV3x-iiqJVKurfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572672404142-5ipq7cs83hl87nhgsggiqjngq13kguar.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
