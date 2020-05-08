@@ -21,7 +21,7 @@ public class fragment_wallpaper extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
     View view;
-    Button btncars;
+    Button btncars,btn_nature,btn_travel,btn_bikes,btn_wildlife;
 
 
     public fragment_wallpaper(){
@@ -36,6 +36,9 @@ public class fragment_wallpaper extends Fragment {
 
         view= inflater.inflate(R.layout.fragment_wallpaper,container,false);
          btncars=view.findViewById(R.id.btncars);
+         btn_travel=view.findViewById(R.id.btn_travel);
+         btn_bikes=view.findViewById(R.id.btn_bikes);
+         btn_wildlife=view.findViewById(R.id.btn_wildlife);
 
          btncars.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -43,6 +46,12 @@ public class fragment_wallpaper extends Fragment {
 
                  Intent intent =new Intent(getActivity(),cars.class);
                  startActivityForResult(intent,1);
+             }
+         });
+         btn_travel.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+
              }
          });
 

@@ -22,7 +22,7 @@
                 android:textColor="#ffffff" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btn_nature"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
@@ -33,7 +33,7 @@
                 android:textColor="#ffffff" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn_travel"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
@@ -43,7 +43,7 @@
                 android:textColor="#ffffff" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btn_bikes"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
@@ -53,7 +53,7 @@
                 android:textColor="#ffffff" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/btn_wildlife"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
