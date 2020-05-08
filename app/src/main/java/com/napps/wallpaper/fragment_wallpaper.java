@@ -36,6 +36,7 @@ public class fragment_wallpaper extends Fragment {
 
         view= inflater.inflate(R.layout.fragment_wallpaper,container,false);
          btncars=view.findViewById(R.id.btncars);
+         btn_nature=view.findViewById(R.id.btn_nature);
          btn_travel=view.findViewById(R.id.btn_travel);
          btn_bikes=view.findViewById(R.id.btn_bikes);
          btn_wildlife=view.findViewById(R.id.btn_wildlife);
@@ -48,10 +49,36 @@ public class fragment_wallpaper extends Fragment {
                  startActivityForResult(intent,1);
              }
          });
-         btn_travel.setOnClickListener(new View.OnClickListener() {
+         btn_nature.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
 
+                 Intent intent =new Intent(getActivity(),nature.class);
+                 startActivityForResult(intent,1);
+
+             }
+         });
+         btn_travel.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent =new Intent(getActivity(),travel.class);
+                 startActivityForResult(intent,1);
+
+             }
+         });
+         btn_bikes.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent =new Intent(getActivity(),bikes.class);
+                 startActivityForResult(intent,1);
+
+             }
+         });
+         btn_wildlife.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent =new Intent(getActivity(),wildlife.class);
+                 startActivityForResult(intent,1);
              }
          });
 

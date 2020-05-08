@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -14,9 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".setwallpaper"
+        <activity android:name=".wildlife"
             android:theme="@style/AppTheme.NoActionBar"
             ></activity>
+        <activity
+            android:name=".bikes"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".travel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".nature"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".setwallpaper"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".cars"
             android:theme="@style/AppTheme.NoActionBar" />

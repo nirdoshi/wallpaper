@@ -39,7 +39,7 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
     DatabaseReference reff,reff2;
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
-    Button btncars;
+
     DownloadManager downloadManager;
     MediaPlayer mediaPlayer;
 
