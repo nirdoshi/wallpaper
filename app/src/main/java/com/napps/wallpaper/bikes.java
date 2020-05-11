@@ -57,7 +57,8 @@ public class bikes extends AppCompatActivity implements NavigationView.OnNavigat
 
         database=FirebaseDatabase.getInstance();
         reff2=database.getReference("ringtones").child("trending");
-        reff=database.getReference("wallpapers").child("cars");
+        reff=database.getReference("wallpapers").child("bikes");
+
         array_class.arrayurl.clear();
         reff.addValueEventListener(new ValueEventListener() {
             @Override
