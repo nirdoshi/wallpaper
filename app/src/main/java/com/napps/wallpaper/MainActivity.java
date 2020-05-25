@@ -3,6 +3,7 @@ package com.napps.wallpaper;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -22,12 +23,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -46,6 +50,10 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         imageAdapter.itemclicked,Rintone_adapter.itemclicked2 {
@@ -54,11 +62,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawer;
     FirebaseDatabase database;
     DatabaseReference reff;
-    DatabaseReference reff2;
+    DatabaseReference reff2,reff3;
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
+    FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
     DownloadManager downloadManager;
     MediaPlayer mediaPlayer;
+    int active=0;
 
     FragmentManager mFragmentManager;
     private fragment_ringtone fragment_ringtone;
@@ -70,30 +81,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         final NavigationView navigationView=findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         array_class.arrayurl.clear();
 
+        Intent intent=new Intent();
+        active=getIntent().getIntExtra("df",0);
 
-
+        firebaseStorage=FirebaseStorage.getInstance();
 
         database=FirebaseDatabase.getInstance();
         reff=database.getReference("wallpapers").child("trending");
         reff2=database.getReference("ringtones").child("trending");
-
-
+        ArrayList<recyclercontent>nir=new ArrayList<>();
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                array_class.arrayurl.clear();
                 for (DataSnapshot data:dataSnapshot.getChildren()){
                        recyclercontent=data.getValue(recyclercontent.class);
 
                         //String url=data.getValue().toString();
                         array_class.arrayurl.add(recyclercontent);
+                        Collections.shuffle(array_class.arrayurl);
                 }
 
                 if (savedInstanceState==null) {
@@ -101,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             .commit();
                     navigationView.setCheckedItem(R.id.nav_wallpaper);
                 }
+               // array_class.arrayurl.clear();
             }
 
             @Override
@@ -113,12 +130,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         reff2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                array_class.arrayurl2.clear();
                 for (DataSnapshot data:dataSnapshot.getChildren()){
                     ringtonecontent=data.getValue(Ringtonecontent.class);
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl2.add(ringtonecontent);
+                    Collections.shuffle(array_class.arrayurl2);
                 }
 
                 if (savedInstanceState==null) {
@@ -204,16 +222,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
 
     }
-
+/*
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       /* if (requestCode==1 && requestCode==RESULT_OK) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_wallpaper()).addToBackStack(null)
-                    .commit();
-        }*/
-        final NavigationView navigationView=findViewById(R.id.nav_view);
 
+        final NavigationView navigationView=findViewById(R.id.nav_view);
+        final SharedPreferences sharedPreferences= getSharedPreferences("my_key",MODE_PRIVATE);
+        //active=sharedPreferences.getInt("df",0);
 
         array_class.arrayurl.clear();
 
@@ -229,10 +245,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         array_class.arrayurl.add(recyclercontent);
                     }
 
-
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper()).addToBackStack(null)
+                    if (resultCode==RESULT_OK) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
                                 .commit();
                         navigationView.setCheckedItem(R.id.nav_wallpaper);
+                    }else {
+                        MediaPlayer mediaPlayer=new MediaPlayer();
+                        mediaPlayer.stop();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_ringtone())
+                                .commit();
+                        navigationView.setCheckedItem(R.id.nav_ringtone);
+
+                    }
 
                 }
 
@@ -244,9 +268,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
+ */
+
 
     @Override
     public void onitemclicked2(int index) {
+
+        Intent intent=new Intent(MainActivity.this,music_info.class);
+        intent.putExtra("audiourl",index);
+        startActivityForResult(intent,3);
+        /*
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         new Player().execute(array_class.arrayurl2.get(index).getUrl());
@@ -255,7 +286,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageView imageView1=findViewById(R.id.iv_pause);
         imageView1.setVisibility(View.VISIBLE);
         Toast.makeText(this, "please wait", Toast.LENGTH_SHORT).show();
+        */
     }
+
+    @Override
+    public void iv(int index) {
+        Intent intent=new Intent(MainActivity.this,music_info.class);
+        intent.putExtra("audiourl",index);
+        startActivityForResult(intent,3);
+    }
+
+
+       /*
 
     @Override
     public void onpause(int index) {
@@ -319,8 +361,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         }
-    }
 
+    }
+*/
 
 
 

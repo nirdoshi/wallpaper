@@ -14,9 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".wildlife"
+        <activity android:name=".music_info"
             android:theme="@style/AppTheme.NoActionBar"
             ></activity>
+        <activity
+            android:name=".wildlife"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".bikes"
             android:theme="@style/AppTheme.NoActionBar" />

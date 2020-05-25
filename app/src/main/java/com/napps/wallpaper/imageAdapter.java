@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -64,7 +67,7 @@ public class imageAdapter extends RecyclerView.Adapter<imageAdapter.viewholder> 
     @Override
     public void onBindViewHolder(@NonNull imageAdapter.viewholder holder, int position) {
         holder.itemView.setTag(arrayurl.get(position));
-        Picasso.get().load(arrayurl.get(position).getImage()).fit().into(holder.iv);
+       Picasso.get().load(arrayurl.get(position).getImage()).fit().into(holder.iv);
 
     }
 

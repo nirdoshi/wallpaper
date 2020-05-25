@@ -54,7 +54,7 @@ public class fragment_ringtone extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         adapter=new Rintone_adapter(getActivity(),array_class.arrayurl2);
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
     }

@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.Collections;
 
 public class nature extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         imageAdapter.itemclicked,Rintone_adapter.itemclicked2 {
@@ -69,6 +70,7 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl.add(recyclercontent);
+                    Collections.shuffle(array_class.arrayurl);
                 }
 
                 if (savedInstanceState==null) {
@@ -88,12 +90,14 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
         reff2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                array_class.arrayurl2.clear();
                 for (DataSnapshot data:dataSnapshot.getChildren()){
                     ringtonecontent=data.getValue(Ringtonecontent.class);
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl2.add(ringtonecontent);
+                    Collections.shuffle(array_class.arrayurl2);
+
                 }
 
                 if (savedInstanceState==null) {
@@ -163,81 +167,15 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
 
     @Override
     public void onitemclicked2(int index) {
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        new nature.Player().execute(array_class.arrayurl2.get(index).getUrl());
-        ImageView imageView=findViewById(R.id.iv_play);
-        imageView.setVisibility(View.GONE);
-        ImageView imageView1=findViewById(R.id.iv_pause);
-        imageView1.setVisibility(View.VISIBLE);
-        Toast.makeText(this, "please wait", Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(nature.this,music_info.class);
+        intent.putExtra("audiourl",index);
+        startActivityForResult(intent,2);
     }
 
     @Override
-    public void onpause(int index) {
-        mediaPlayer.stop();
-        ImageView imageView=findViewById(R.id.iv_pause);
-        ImageView imageView1=findViewById(R.id.iv_play);
-        imageView.setVisibility(View.GONE);
-        imageView1.setVisibility(View.VISIBLE);
-
+    public void iv(int index) {
 
     }
-
-    @Override
-    public void downloadfile(int index) {
-
-        downloadManager=(DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
-        Uri uri=Uri.parse(array_class.arrayurl2.get(index).getUrl());
-        DownloadManager.Request request=new DownloadManager.Request(uri);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setMimeType("audio/MP3");
-        request.allowScanningByMediaScanner();
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,array_class.arrayurl2.get(index).getName()+".mp3");
-        request.setTitle(array_class.arrayurl2.get(index).getName());
-
-        Long reference=downloadManager.enqueue(request);
-
-
-    }
-
-
-    public class Player extends AsyncTask<String, Void, Void> {
-
-
-        @Override
-        protected Void doInBackground(String... params) {
-            String url=params[0];
-            try {
-                mediaPlayer.setDataSource(url);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                mediaPlayer.prepare();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void avoid) {
-
-            mediaPlayer.start();
-        }
-
-
-
-        @Override
-        protected void onPreExecute() {
-
-
-        }
-    }
-
-
 
 
 }

@@ -108,7 +108,7 @@ public class setwallpaper extends AppCompatActivity{
 
 
                 builder = new AlertDialog.Builder(setwallpaper.this);
-                builder.setTitle("Title");
+                builder.setTitle("Choose Options");
                 builder.setItems(new CharSequence[]
                                 {"set homescreen", "set lockscreen", "download"},
                         new DialogInterface.OnClickListener() {

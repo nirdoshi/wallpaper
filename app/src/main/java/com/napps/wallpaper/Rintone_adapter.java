@@ -24,8 +24,7 @@ public class Rintone_adapter extends RecyclerView.Adapter<Rintone_adapter.viewho
     public interface itemclicked2 {
 
         public void onitemclicked2(int index);
-        public void onpause(int index);
-        public void downloadfile(int index);
+        public void iv(int index);
     }
 
 
@@ -39,25 +38,23 @@ public class Rintone_adapter extends RecyclerView.Adapter<Rintone_adapter.viewho
 
     public class viewholder extends RecyclerView.ViewHolder {
 
-        ImageView iv_play,iv_download,iv_pause;
+        ImageView iv_play,iv_download;
         TextView tv_name;
         public viewholder(@NonNull View itemView) {
             super(itemView);
             iv_play=itemView.findViewById(R.id.iv_play);
             iv_download=itemView.findViewById(R.id.iv_download);
             tv_name=itemView.findViewById(R.id.tv_name);
-            iv_pause=itemView.findViewById(R.id.iv_pause);
-            iv_pause.setVisibility(View.GONE);
-            /*
-            iv_play.setOnClickListener(new View.OnClickListener() {
+            //iv_pause=itemView.findViewById(R.id.iv_pause);
+//            iv_pause.setVisibility(View.GONE);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     activity.onitemclicked2(arrayurl.indexOf(v.getTag()));
                 }
             });
-
-             */
-
 
         }
     }
@@ -76,19 +73,9 @@ public class Rintone_adapter extends RecyclerView.Adapter<Rintone_adapter.viewho
         holder.iv_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.onitemclicked2(position);
-            }
-        });
-        holder.iv_pause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.onpause(position);
-            }
-        });
-        holder.iv_download.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.downloadfile(position);
+
+                activity.iv(position);
+
             }
         });
 
