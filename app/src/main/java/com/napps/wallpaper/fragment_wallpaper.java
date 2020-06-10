@@ -2,6 +2,7 @@ package com.napps.wallpaper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class fragment_wallpaper extends Fragment {
              public void onClick(View v) {
 
                  Intent intent =new Intent(getActivity(),cars.class);
+               //  intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                  startActivityForResult(intent,1);
              }
          });
@@ -93,7 +95,6 @@ public class fragment_wallpaper extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-
         recyclerView=view.findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(20);
@@ -102,13 +103,12 @@ public class fragment_wallpaper extends Fragment {
 
         //layoutManager=new LinearLayoutManager(this.getActivity());
         layoutManager=new GridLayoutManager(this.getActivity(),2);
-
         recyclerView.setLayoutManager(layoutManager);
 
         adapter=new imageAdapter(this.getActivity(),array_class.arrayurl);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
-
     }
+
 
 }

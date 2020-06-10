@@ -43,7 +43,7 @@ public class Rintone_adapter extends RecyclerView.Adapter<Rintone_adapter.viewho
         public viewholder(@NonNull View itemView) {
             super(itemView);
             iv_play=itemView.findViewById(R.id.iv_play);
-            iv_download=itemView.findViewById(R.id.iv_download);
+           // iv_download=itemView.findViewById(R.id.iv_download);
             tv_name=itemView.findViewById(R.id.tv_name);
             //iv_pause=itemView.findViewById(R.id.iv_pause);
 //            iv_pause.setVisibility(View.GONE);

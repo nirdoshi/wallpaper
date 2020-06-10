@@ -1,20 +1,26 @@
 package com.napps.wallpaper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.MenuItem;
@@ -35,12 +41,50 @@ public class music_info extends AppCompatActivity implements NavigationView.OnNa
     DownloadManager downloadManager;
     Boolean nir=true;
     DrawerLayout drawer;
+    public ProgressDialog progressDialog;
+    private static final int PERMISSION_REQUEST_CODE =1000 ;
+    Toolbar toolbar;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+
+
+        //  contentResolverWeakReference = new WeakReference<ContentResolver>(getApplicationContext().getContentResolver());
+
+        switch (requestCode){
+            case PERMISSION_REQUEST_CODE:
+            {
+                if (grantResults.length>0&&grantResults[0]== PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(this, "permission granted", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+            break;
+        }
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_info);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[]{
+
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+
+            },PERMISSION_REQUEST_CODE);
+        }
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Ringtone info");
         setSupportActionBar(toolbar);
         final NavigationView navigationView=findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -80,6 +124,9 @@ public class music_info extends AppCompatActivity implements NavigationView.OnNa
 
             }
         });
+
+
+
 
         download.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +196,7 @@ public class music_info extends AppCompatActivity implements NavigationView.OnNa
         protected Void doInBackground(String... params) {
 
             String url=params[0];
+            //mediaPlayer.stop();
             try {
                 mediaPlayer.setDataSource(url);
             } catch (IOException e) {
@@ -159,11 +207,13 @@ public class music_info extends AppCompatActivity implements NavigationView.OnNa
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             return null;
         }
 
         @Override
         protected void onPostExecute(Void avoid) {
+            progressDialog.dismiss();
             mediaPlayer.start();
         }
 
@@ -171,7 +221,10 @@ public class music_info extends AppCompatActivity implements NavigationView.OnNa
 
         @Override
         protected void onPreExecute() {
-
+            progressDialog=new ProgressDialog(music_info.this);
+            progressDialog.setMessage("please wait");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
             mediaPlayer.stop();
         }
 

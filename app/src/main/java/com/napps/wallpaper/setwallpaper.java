@@ -160,7 +160,7 @@ public class setwallpaper extends AppCompatActivity{
 
 
 
-        setResult(RESULT_OK,intent);
+        setResult(99,intent);
 
     }
 

@@ -11,6 +11,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -37,6 +39,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.Button;
@@ -62,17 +66,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawer;
     FirebaseDatabase database;
     DatabaseReference reff;
-    DatabaseReference reff2,reff3;
+    DatabaseReference reff2;
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
     FirebaseStorage firebaseStorage;
-    StorageReference storageReference;
-    DownloadManager downloadManager;
-    MediaPlayer mediaPlayer;
-    int active=0;
 
-    FragmentManager mFragmentManager;
-    private fragment_ringtone fragment_ringtone;
+    int active=0;
+    Toolbar toolbar;
+    ArrayList<recyclercontent> trend=new ArrayList<>();
 
     //  RecyclerView.LayoutManager layoutManager;
 
@@ -82,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Trending Wallpaper");
         setSupportActionBar(toolbar);
 
         final NavigationView navigationView=findViewById(R.id.nav_view);
@@ -105,11 +106,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 array_class.arrayurl.clear();
                 for (DataSnapshot data:dataSnapshot.getChildren()){
-                       recyclercontent=data.getValue(recyclercontent.class);
+                    recyclercontent=data.getValue(recyclercontent.class);
 
-                        //String url=data.getValue().toString();
-                        array_class.arrayurl.add(recyclercontent);
-                        Collections.shuffle(array_class.arrayurl);
+                    //String url=data.getValue().toString();
+                    array_class.arrayurl.add(recyclercontent);
+                    trend.add(recyclercontent);
+                    Collections.reverse(array_class.arrayurl);
+                    Collections.reverse(trend);
                 }
 
                 if (savedInstanceState==null) {
@@ -117,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             .commit();
                     navigationView.setCheckedItem(R.id.nav_wallpaper);
                 }
-               // array_class.arrayurl.clear();
+                // array_class.arrayurl.clear();
             }
 
             @Override
@@ -126,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-            array_class.arrayurl2.clear();
+        array_class.arrayurl2.clear();
         reff2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -136,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl2.add(ringtonecontent);
-                    Collections.shuffle(array_class.arrayurl2);
+                    Collections.reverse(array_class.arrayurl2);
                 }
 
                 if (savedInstanceState==null) {
@@ -155,11 +158,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-         drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
-            drawer.addDrawerListener(toggle);
-            toggle.syncState();
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
 
 
@@ -169,10 +172,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
       /*  if (savedInstanceState == null) {
             navigationView.getMenu().performIdentifierAction(R.id.nav_wallpaper, 0);
-
             navigationView.setCheckedItem(R.id.nav_wallpaper);
         }
-
         */
 
 
@@ -182,13 +183,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+
+
+
     @Override
     public void onBackPressed() {
 
         if (drawer.isDrawerOpen(GravityCompat.START)){
-         drawer.closeDrawer(GravityCompat.START);
+            drawer.closeDrawer(GravityCompat.START);
         }else {
-                finish();
+           // finish();
             super.onBackPressed();
         }
     }
@@ -197,14 +201,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_wallpaper:
-
+                toolbar.setTitle("Trending Wallpaper");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
                         .commit();
                 break;
             case R.id.nav_ringtone:
+                toolbar.setTitle("Trending Ringtones");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_ringtone())
                         .commit();
                 break;
+            case R.id.nav_share:
+                Intent shareintent=new Intent();
+                shareintent.setAction(Intent.ACTION_SEND);
+                shareintent.putExtra(Intent.EXTRA_TEXT,"https://play.google.com/store/apps/details?id=com.napps.wallpaper&hl=en");
+               // shareintent.putExtra(Intent.EXTRA_SUBJECT,"Use this app to download trending and interesting wallpapers and ringtones");
+                shareintent.setType("text/plain");
+                startActivity(Intent.createChooser(shareintent,"Share via"));
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -217,58 +229,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //String url=array_class.arrayurl.get(index).getImage();
         //intent.putExtra("url",ur);
         intent.putExtra("url",index);
-        startActivityForResult(intent,2);
-
-        Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+       // startActivityForResult(intent,2);
+            startActivity(intent);
+       // Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
 
     }
-/*
+
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         final NavigationView navigationView=findViewById(R.id.nav_view);
         final SharedPreferences sharedPreferences= getSharedPreferences("my_key",MODE_PRIVATE);
         //active=sharedPreferences.getInt("df",0);
-
         array_class.arrayurl.clear();
+        array_class.arrayurl= (ArrayList<com.napps.wallpaper.recyclercontent>) trend.clone();
 
-
-            reff.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    for (DataSnapshot data:dataSnapshot.getChildren()){
-                        recyclercontent=data.getValue(recyclercontent.class);
-
-                        //String url=data.getValue().toString();
-                        array_class.arrayurl.add(recyclercontent);
-                    }
 
                     if (resultCode==RESULT_OK) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
+                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
                                 .commit();
                         navigationView.setCheckedItem(R.id.nav_wallpaper);
-                    }else {
+                    }
+                    else{
                         MediaPlayer mediaPlayer=new MediaPlayer();
                         mediaPlayer.stop();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_ringtone())
                                 .commit();
                         navigationView.setCheckedItem(R.id.nav_ringtone);
-
                     }
 
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(MainActivity.this, "not working", Toast.LENGTH_SHORT).show();
-                }
-            });
 
         }
 
- */
+
+
 
 
     @Override
@@ -298,7 +292,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
        /*
-
     @Override
     public void onpause(int index) {
         mediaPlayer.stop();
@@ -306,13 +299,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageView imageView1=findViewById(R.id.iv_play);
         imageView.setVisibility(View.GONE);
         imageView1.setVisibility(View.VISIBLE);
-
-
     }
-
     @Override
     public void downloadfile(int index) {
-
         downloadManager=(DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri=Uri.parse(array_class.arrayurl2.get(index).getUrl());
         DownloadManager.Request request=new DownloadManager.Request(uri);
@@ -321,16 +310,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         request.allowScanningByMediaScanner();
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,array_class.arrayurl2.get(index).getName()+".mp3");
         request.setTitle(array_class.arrayurl2.get(index).getName());
-
         Long reference=downloadManager.enqueue(request);
-
-
     }
-
-
     public class Player extends AsyncTask<String, Void, Void> {
-
-
         @Override
         protected Void doInBackground(String... params) {
             String url=params[0];
@@ -344,24 +326,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             return null;
         }
-
         @Override
         protected void onPostExecute(Void avoid) {
-
             mediaPlayer.start();
         }
-
-
-
         @Override
         protected void onPreExecute() {
-
-
         }
-
     }
 */
 

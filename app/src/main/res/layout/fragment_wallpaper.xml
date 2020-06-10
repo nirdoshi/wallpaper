@@ -17,7 +17,7 @@
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/custom_buttom"
+                android:background="@drawable/ripple"
                 android:text="cars"
                 android:textColor="#ffffff" />
 
@@ -28,7 +28,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
 
-                android:background="@drawable/custom_buttom"
+                android:background="@drawable/ripple"
                 android:text="NATURE"
                 android:textColor="#ffffff" />
 
@@ -38,7 +38,7 @@
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/custom_buttom"
+                android:background="@drawable/ripple"
                 android:text="TRAVEL"
                 android:textColor="#ffffff" />
 
@@ -48,7 +48,7 @@
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/custom_buttom"
+                android:background="@drawable/ripple"
                 android:text="BIKES"
                 android:textColor="#ffffff" />
 
@@ -58,7 +58,7 @@
                 android:layout_height="35dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/custom_buttom"
+                android:background="@drawable/ripple"
                 android:text="WILDLIFE"
                 android:textColor="#ffffff" />
 

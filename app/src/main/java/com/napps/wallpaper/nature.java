@@ -1,6 +1,7 @@
 package com.napps.wallpaper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -29,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class nature extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -40,17 +43,19 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
     DatabaseReference reff,reff2;
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
+    ArrayList<recyclercontent> nature=new ArrayList<>();
 
     DownloadManager downloadManager;
     MediaPlayer mediaPlayer;
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nature);
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Nature wallpaper");
         setSupportActionBar(toolbar);
         final NavigationView navigationView=findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -70,7 +75,9 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl.add(recyclercontent);
-                    Collections.shuffle(array_class.arrayurl);
+                    nature.add(recyclercontent);
+                    Collections.reverse(array_class.arrayurl);
+                    Collections.reverse(nature);
                 }
 
                 if (savedInstanceState==null) {
@@ -96,7 +103,7 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl2.add(ringtonecontent);
-                    Collections.shuffle(array_class.arrayurl2);
+                    Collections.reverse(array_class.arrayurl2);
 
                 }
 
@@ -132,6 +139,7 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
         if (drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         }else {
+            finish();
             super.onBackPressed();
         }
     }
@@ -140,6 +148,7 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_wallpaper:
+                toolbar.setTitle("Trending Wallpaper");
                 //startActivity(new Intent(cars.this,MainActivity.class));
                 Intent intent=new Intent(nature.this,MainActivity.class);
                 setResult(RESULT_OK,intent);
@@ -148,6 +157,7 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
                 //       .commit();
                 break;
             case R.id.nav_ringtone:
+                toolbar.setTitle("Trending Ringtones");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_ringtone())
                         .commit();
                 break;
@@ -161,8 +171,33 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
         Intent intent=new Intent(nature.this,setwallpaper.class);
         // String url= array_class.arrayurl.get(index).getImage();
         intent.putExtra("url",index);
-        startActivityForResult(intent,0);
+       // startActivityForResult(intent,0);
+        startActivity(intent);
         Toast.makeText(this, "please wait", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        final NavigationView navigationView=findViewById(R.id.nav_view);
+        final SharedPreferences sharedPreferences= getSharedPreferences("my_key",MODE_PRIVATE);
+        //active=sharedPreferences.getInt("df",0);
+        array_class.arrayurl.clear();
+        array_class.arrayurl= (ArrayList<com.napps.wallpaper.recyclercontent>) nature.clone();
+
+        if (resultCode==RESULT_OK) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
+                    .commit();
+            navigationView.setCheckedItem(R.id.nav_wallpaper);
+        }
+        else{
+            MediaPlayer mediaPlayer=new MediaPlayer();
+            mediaPlayer.stop();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_ringtone())
+                    .commit();
+            navigationView.setCheckedItem(R.id.nav_ringtone);
+        }
+
+
     }
 
     @Override
@@ -174,8 +209,9 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
 
     @Override
     public void iv(int index) {
-
+        Intent intent=new Intent(nature.this,music_info.class);
+        intent.putExtra("audiourl",index);
+        startActivityForResult(intent,3);
     }
-
 
 }
