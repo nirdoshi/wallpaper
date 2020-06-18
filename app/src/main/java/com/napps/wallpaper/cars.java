@@ -43,17 +43,18 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
     DatabaseReference reff,reff2;
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
-    ArrayList<recyclercontent> car=new ArrayList<>();
+   // ArrayList<recyclercontent> car=new ArrayList<>();
     DownloadManager downloadManager;
     MediaPlayer mediaPlayer;
     Toolbar toolbar;
+
 
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cars);
-
+        MainActivity.key=101;
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Cars wallpaper");
@@ -66,19 +67,21 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
         database=FirebaseDatabase.getInstance();
         reff2=database.getReference("ringtones").child("trending");
         reff=database.getReference("wallpapers").child("cars");
-        array_class.arrayurl.clear();
+       array_class.car.clear();
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    array_class.arrayurl.clear();
+                    array_class.car.clear();
                 for (DataSnapshot data:dataSnapshot.getChildren()){
                     recyclercontent=data.getValue(recyclercontent.class);
 
+
+                    array_class.car.add(recyclercontent);
                     //String url=data.getValue().toString();
-                    array_class.arrayurl.add(recyclercontent);
-                    car.add(recyclercontent);
-                    Collections.reverse(array_class.arrayurl);
-                    Collections.reverse(car);
+                   // array_class.arrayurl.add(recyclercontent);
+                   // car.add(recyclercontent);
+                   // Collections.reverse(array_class.arrayurl);
+                    Collections.reverse(array_class.car);
                 }
 
                 if (savedInstanceState==null) {
@@ -182,6 +185,10 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
+
+        MainActivity.key=101;
+
+        /*
         super.onActivityResult(requestCode, resultCode, data);
         final NavigationView navigationView=findViewById(R.id.nav_view);
         final SharedPreferences sharedPreferences= getSharedPreferences("my_key",MODE_PRIVATE);
@@ -201,7 +208,7 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
                     .commit();
             navigationView.setCheckedItem(R.id.nav_ringtone);
         }
-
+    */
 
     }
 

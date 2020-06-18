@@ -47,12 +47,12 @@ public class bikes extends AppCompatActivity implements NavigationView.OnNavigat
     DownloadManager downloadManager;
     MediaPlayer mediaPlayer;
     Toolbar toolbar;
-    ArrayList<recyclercontent> bikes=new ArrayList<>();
+   // ArrayList<recyclercontent> bikes=new ArrayList<>();
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bikes);
-
+        MainActivity.key=104;
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Bikes wallpaper");
         setSupportActionBar(toolbar);
@@ -65,19 +65,19 @@ public class bikes extends AppCompatActivity implements NavigationView.OnNavigat
         reff2=database.getReference("ringtones").child("trending");
         reff=database.getReference("wallpapers").child("bikes");
 
-        array_class.arrayurl.clear();
+        array_class.bikes.clear();
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                array_class.arrayurl.clear();
+                array_class.bikes.clear();
                 for (DataSnapshot data:dataSnapshot.getChildren()){
                     recyclercontent=data.getValue(recyclercontent.class);
 
                     //String url=data.getValue().toString();
-                    array_class.arrayurl.add(recyclercontent);
-                    bikes.add(recyclercontent);
-                   Collections.reverse(array_class.arrayurl);
-                   Collections.reverse(bikes);
+                    array_class.bikes.add(recyclercontent);
+                 //   bikes.add(recyclercontent);
+                  // Collections.reverse(array_class.arrayurl);
+                   Collections.reverse(array_class.bikes);
                 }
 
                 if (savedInstanceState==null) {
@@ -180,6 +180,8 @@ public class bikes extends AppCompatActivity implements NavigationView.OnNavigat
 
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
+        MainActivity.key=104;
+        /*
         super.onActivityResult(requestCode, resultCode, data);
         final NavigationView navigationView=findViewById(R.id.nav_view);
         final SharedPreferences sharedPreferences= getSharedPreferences("my_key",MODE_PRIVATE);
@@ -200,7 +202,7 @@ public class bikes extends AppCompatActivity implements NavigationView.OnNavigat
                     .commit();
             navigationView.setCheckedItem(R.id.nav_ringtone);
         }
-
+        */
 
     }
 

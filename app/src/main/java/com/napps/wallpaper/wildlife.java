@@ -47,12 +47,12 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
     DownloadManager downloadManager;
     MediaPlayer mediaPlayer;
     Toolbar toolbar;
-    ArrayList<recyclercontent> wildlife=new ArrayList<>();
+   // ArrayList<recyclercontent> wildlife=new ArrayList<>();
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wildlife);
-
+        MainActivity.key=105;
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Wildlife wallpaper");
         setSupportActionBar(toolbar);
@@ -64,19 +64,19 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
         database= FirebaseDatabase.getInstance();
         reff2=database.getReference("ringtones").child("trending");
         reff=database.getReference("wallpapers").child("wildlife");
-        array_class.arrayurl.clear();
+       array_class.wildlife.clear();
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                array_class.arrayurl.clear();
+                array_class.wildlife.clear();
                 for (DataSnapshot data:dataSnapshot.getChildren()){
                     recyclercontent=data.getValue(recyclercontent.class);
 
                     //String url=data.getValue().toString();
-                    array_class.arrayurl.add(recyclercontent);
-                    wildlife.add(recyclercontent);
-                    Collections.reverse(array_class.arrayurl);
-                    Collections.reverse(wildlife);
+                    array_class.wildlife.add(recyclercontent);
+                  //  wildlife.add(recyclercontent);
+                  //  Collections.reverse(array_class.arrayurl);
+                    Collections.reverse(array_class.wildlife);
                 }
 
                 if (savedInstanceState==null) {
@@ -179,6 +179,8 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
+        MainActivity.key=105;
+        /*
         super.onActivityResult(requestCode, resultCode, data);
         final NavigationView navigationView=findViewById(R.id.nav_view);
         final SharedPreferences sharedPreferences= getSharedPreferences("my_key",MODE_PRIVATE);
@@ -199,6 +201,8 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
                     .commit();
             navigationView.setCheckedItem(R.id.nav_ringtone);
         }
+
+         */
 
 
     }

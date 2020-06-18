@@ -1,6 +1,7 @@
 package com.napps.wallpaper;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class fragment_wallpaper extends Fragment {
 
@@ -35,7 +38,7 @@ public class fragment_wallpaper extends Fragment {
 
 
 
-        view= inflater.inflate(R.layout.fragment_wallpaper,container,false);
+         view= inflater.inflate(R.layout.fragment_wallpaper,container,false);
          btncars=view.findViewById(R.id.btncars);
          btn_nature=view.findViewById(R.id.btn_nature);
          btn_travel=view.findViewById(R.id.btn_travel);
@@ -93,8 +96,6 @@ public class fragment_wallpaper extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
         recyclerView=view.findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(20);
@@ -104,8 +105,21 @@ public class fragment_wallpaper extends Fragment {
         //layoutManager=new LinearLayoutManager(this.getActivity());
         layoutManager=new GridLayoutManager(this.getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
+        if (MainActivity.key==100){
+            adapter = new imageAdapter(this.getActivity(), array_class.trend);
+        }else if(MainActivity.key==101){
+            adapter = new imageAdapter(this.getActivity(), array_class.car);
+        }else if(MainActivity.key==102){
+            adapter = new imageAdapter(this.getActivity(), array_class.nature);
+        }else if(MainActivity.key==103){
+            adapter = new imageAdapter(this.getActivity(), array_class.travel);
+        }else if(MainActivity.key==104){
+            adapter = new imageAdapter(this.getActivity(), array_class.bikes);
+        }else {
+            adapter = new imageAdapter(this.getActivity(), array_class.wildlife);
+        }
 
-        adapter=new imageAdapter(this.getActivity(),array_class.arrayurl);
+
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
     }

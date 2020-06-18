@@ -43,7 +43,7 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
     DatabaseReference reff,reff2;
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
-    ArrayList<recyclercontent> nature=new ArrayList<>();
+   // ArrayList<recyclercontent> nature=new ArrayList<>();
 
     DownloadManager downloadManager;
     MediaPlayer mediaPlayer;
@@ -52,7 +52,7 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nature);
-
+        MainActivity.key=102;
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Nature wallpaper");
@@ -65,19 +65,19 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
         database=FirebaseDatabase.getInstance();
         reff2=database.getReference("ringtones").child("trending");
         reff=database.getReference("wallpapers").child("nature");
-        array_class.arrayurl.clear();
+        array_class.nature.clear();
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                array_class.arrayurl.clear();
+                array_class.nature.clear();
                 for (DataSnapshot data:dataSnapshot.getChildren()){
                     recyclercontent=data.getValue(recyclercontent.class);
-
+                    array_class.nature.add(recyclercontent);
                     //String url=data.getValue().toString();
-                    array_class.arrayurl.add(recyclercontent);
-                    nature.add(recyclercontent);
-                    Collections.reverse(array_class.arrayurl);
-                    Collections.reverse(nature);
+                   // array_class.arrayurl.add(recyclercontent);
+                   // nature.add(recyclercontent);
+                    //Collections.reverse(array_class.arrayurl);
+                    Collections.reverse(array_class.nature);
                 }
 
                 if (savedInstanceState==null) {
@@ -177,6 +177,8 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
     }
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
+        MainActivity.key=102;
+        /*
         super.onActivityResult(requestCode, resultCode, data);
         final NavigationView navigationView=findViewById(R.id.nav_view);
         final SharedPreferences sharedPreferences= getSharedPreferences("my_key",MODE_PRIVATE);
@@ -196,6 +198,8 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
                     .commit();
             navigationView.setCheckedItem(R.id.nav_ringtone);
         }
+
+        */
 
 
     }

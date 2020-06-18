@@ -7,6 +7,7 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -95,9 +96,31 @@ public class setwallpaper extends AppCompatActivity{
         //String url=intent.getStringExtra("url");
             int postion=getIntent().getIntExtra("url",0);
             index=postion;
-        Picasso.get().load(array_class.arrayurl.get(postion).getImage()).into(imageView_set);
+        SharedPreferences sharedPreferences=getSharedPreferences("key",MODE_PRIVATE);
+        int val=sharedPreferences.getInt("trend",0);
+        if (MainActivity.key==100) {
+            Picasso.get().load(array_class.trend.get(postion).getImage()).into(imageView_set);
+        }
+        if (MainActivity.key==101){
+            Picasso.get().load(array_class.car.get(postion).getImage()).into(imageView_set);
 
+        }
+        if (MainActivity.key==102){
+            Picasso.get().load(array_class.nature.get(postion).getImage()).into(imageView_set);
 
+        }
+        if (MainActivity.key==103){
+            Picasso.get().load(array_class.travel.get(postion).getImage()).into(imageView_set);
+
+        }
+        if (MainActivity.key==104){
+            Picasso.get().load(array_class.bikes.get(postion).getImage()).into(imageView_set);
+
+        }
+        if (MainActivity.key==105){
+            Picasso.get().load(array_class.wildlife.get(postion).getImage()).into(imageView_set);
+
+        }
 
         imageView_set.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,13 +140,58 @@ public class setwallpaper extends AppCompatActivity{
                                 // of the selected item
                                 switch (which) {
                                     case 0:
-                                        new settask().execute(array_class.arrayurl.get(index).getImage());
+                                        if (MainActivity.key==100) {
+                                            new settask().execute(array_class.trend.get(index).getImage());
+                                        }
+                                        if (MainActivity.key==101){
+                                            new settask().execute(array_class.car.get(index).getImage());
+
+                                        }
+                                        if (MainActivity.key==102){
+                                            new settask().execute(array_class.nature.get(index).getImage());
+
+                                        }
+                                        if (MainActivity.key==103){
+                                            new settask().execute(array_class.travel.get(index).getImage());
+
+                                        }
+                                        if (MainActivity.key==104){
+                                            new settask().execute(array_class.bikes.get(index).getImage());
+
+                                        }
+                                        if (MainActivity.key==105){
+                                            new settask().execute(array_class.wildlife.get(index).getImage());
+
+                                        }
+
                                         //setimage();
                                        // Toast.makeText(setwallpaper.this, "hello", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 1:
                                        // setlockimage();
-                                        new settask2().execute(array_class.arrayurl.get(index).getImage());
+                                        if (MainActivity.key==100) {
+                                            new settask2().execute(array_class.trend.get(index).getImage());
+                                        }
+                                        if (MainActivity.key==101){
+                                            new settask2().execute(array_class.car.get(index).getImage());
+
+                                        }
+                                        if (MainActivity.key==102){
+                                            new settask2().execute(array_class.nature.get(index).getImage());
+
+                                        }
+                                        if (MainActivity.key==103){
+                                            new settask2().execute(array_class.travel.get(index).getImage());
+
+                                        }
+                                        if (MainActivity.key==104){
+                                            new settask2().execute(array_class.bikes.get(index).getImage());
+
+                                        }
+                                        if (MainActivity.key==105){
+                                            new settask2().execute(array_class.wildlife.get(index).getImage());
+
+                                        }
                                         //Toast.makeText(setwallpaper.this, "hello", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 2:
@@ -141,10 +209,36 @@ public class setwallpaper extends AppCompatActivity{
                                         }else {
 
                                             final String filename= UUID.randomUUID().toString()+".jpg";
-
-                                            Picasso.get().load(array_class.arrayurl.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                            if (MainActivity.key==100){
+                                            Picasso.get().load(array_class.trend.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
                                                     getApplicationContext().getContentResolver()
                                                     ,filename,"image desc"));
+                                            }
+                                            if (MainActivity.key==101){
+                                                Picasso.get().load(array_class.car.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                        getApplicationContext().getContentResolver()
+                                                        ,filename,"image desc"));
+                                            }
+                                            if (MainActivity.key==102){
+                                                Picasso.get().load(array_class.nature.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                        getApplicationContext().getContentResolver()
+                                                        ,filename,"image desc"));
+                                            }
+                                            if (MainActivity.key==103){
+                                                Picasso.get().load(array_class.travel.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                        getApplicationContext().getContentResolver()
+                                                        ,filename,"image desc"));
+                                            }
+                                            if (MainActivity.key==104){
+                                                Picasso.get().load(array_class.bikes.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                        getApplicationContext().getContentResolver()
+                                                        ,filename,"image desc"));
+                                            }
+                                            if (MainActivity.key==105){
+                                                Picasso.get().load(array_class.wildlife.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                        getApplicationContext().getContentResolver()
+                                                        ,filename,"image desc"));
+                                            }
                                         }
                                         Toast.makeText(setwallpaper.this, "downloaded", Toast.LENGTH_SHORT).show();
                                         break;

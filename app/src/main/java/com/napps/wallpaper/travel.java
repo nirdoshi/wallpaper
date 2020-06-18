@@ -48,12 +48,12 @@ public class travel extends AppCompatActivity implements NavigationView.OnNaviga
     DownloadManager downloadManager;
     MediaPlayer mediaPlayer;
     Toolbar toolbar;
-    ArrayList<recyclercontent> travel=new ArrayList<>();
+   // ArrayList<recyclercontent> travel=new ArrayList<>();
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel);
-
+        MainActivity.key=103;
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Travel wallpaper");
@@ -66,19 +66,19 @@ public class travel extends AppCompatActivity implements NavigationView.OnNaviga
         database=FirebaseDatabase.getInstance();
         reff2=database.getReference("ringtones").child("trending");
         reff=database.getReference("wallpapers").child("travel");
-        array_class.arrayurl.clear();
+        array_class.travel.clear();
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                array_class.arrayurl.clear();
+                array_class.travel.clear();
                 for (DataSnapshot data:dataSnapshot.getChildren()){
                     recyclercontent=data.getValue(recyclercontent.class);
 
                     //String url=data.getValue().toString();
-                    array_class.arrayurl.add(recyclercontent);
-                    travel.add(recyclercontent);
-                    Collections.reverse(array_class.arrayurl);
-                    Collections.reverse(travel);
+                    array_class.travel.add(recyclercontent);
+                  //  travel.add(recyclercontent);
+                   // Collections.reverse(array_class.arrayurl);
+                    Collections.reverse(array_class.travel);
                 }
 
                 if (savedInstanceState==null) {
@@ -179,6 +179,9 @@ public class travel extends AppCompatActivity implements NavigationView.OnNaviga
 
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
+        MainActivity.key=103;
+
+        /*
         super.onActivityResult(requestCode, resultCode, data);
         final NavigationView navigationView=findViewById(R.id.nav_view);
         final SharedPreferences sharedPreferences= getSharedPreferences("my_key",MODE_PRIVATE);
@@ -199,6 +202,8 @@ public class travel extends AppCompatActivity implements NavigationView.OnNaviga
                     .commit();
             navigationView.setCheckedItem(R.id.nav_ringtone);
         }
+
+         */
 
 
     }

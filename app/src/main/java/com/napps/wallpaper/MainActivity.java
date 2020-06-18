@@ -73,15 +73,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     int active=0;
     Toolbar toolbar;
-    ArrayList<recyclercontent> trend=new ArrayList<>();
-
+   // ArrayList<recyclercontent> trend=new ArrayList<>();
+    public static int key=100;
     //  RecyclerView.LayoutManager layoutManager;
+
+
 
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Trending Wallpaper");
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final NavigationView navigationView=findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        array_class.arrayurl.clear();
+        array_class.trend.clear();
 
         Intent intent=new Intent();
         active=getIntent().getIntExtra("df",0);
@@ -104,15 +108,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                array_class.arrayurl.clear();
+                array_class.trend.clear();
                 for (DataSnapshot data:dataSnapshot.getChildren()){
                     recyclercontent=data.getValue(recyclercontent.class);
 
                     //String url=data.getValue().toString();
-                    array_class.arrayurl.add(recyclercontent);
-                    trend.add(recyclercontent);
-                    Collections.reverse(array_class.arrayurl);
-                    Collections.reverse(trend);
+                        array_class.trend.add(recyclercontent);
+                  //  array_class.arrayurl.add(recyclercontent);
+                   // trend.add(recyclercontent);
+                    //Collections.reverse(array_class.arrayurl);
+                    Collections.reverse(array_class.trend);
                 }
 
                 if (savedInstanceState==null) {
@@ -237,6 +242,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
+
+        key=100;
+
+
+       /*
         super.onActivityResult(requestCode, resultCode, data);
         final NavigationView navigationView=findViewById(R.id.nav_view);
         final SharedPreferences sharedPreferences= getSharedPreferences("my_key",MODE_PRIVATE);
@@ -257,14 +267,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 .commit();
                         navigationView.setCheckedItem(R.id.nav_ringtone);
                     }
-
+        */
 
         }
 
 
 
 
-
+//meidaplayer
     @Override
     public void onitemclicked2(int index) {
 
