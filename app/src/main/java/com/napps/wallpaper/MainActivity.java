@@ -42,6 +42,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int key=100;
     //  RecyclerView.LayoutManager layoutManager;
 
+   // float x1, x2, y1, y2;
 
 
 
@@ -236,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.putExtra("url",index);
        // startActivityForResult(intent,2);
             startActivity(intent);
-       // Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "please wait", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -347,8 +349,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 */
-
-
 
 
 
