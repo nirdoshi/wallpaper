@@ -77,9 +77,9 @@ public class bikes extends AppCompatActivity implements NavigationView.OnNavigat
                     array_class.bikes.add(recyclercontent);
                  //   bikes.add(recyclercontent);
                   // Collections.reverse(array_class.arrayurl);
-                   Collections.reverse(array_class.bikes);
+                  // Collections.reverse(array_class.bikes);
                 }
-
+                Collections.reverse(array_class.bikes);
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
                             .commit();
@@ -103,9 +103,9 @@ public class bikes extends AppCompatActivity implements NavigationView.OnNavigat
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl2.add(ringtonecontent);
-                    Collections.reverse(array_class.arrayurl2);
 
                 }
+                Collections.reverse(array_class.arrayurl2);
 
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())

@@ -81,9 +81,9 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
                    // array_class.arrayurl.add(recyclercontent);
                    // car.add(recyclercontent);
                    // Collections.reverse(array_class.arrayurl);
-                    Collections.reverse(array_class.car);
+                   // Collections.reverse(array_class.car);
                 }
-
+                Collections.reverse(array_class.car);
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
                             .commit();
@@ -107,9 +107,10 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl2.add(ringtonecontent);
-                    Collections.reverse(array_class.arrayurl2);
+
 
                 }
+                Collections.reverse(array_class.arrayurl2);
 
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())

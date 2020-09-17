@@ -76,8 +76,9 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
                     array_class.wildlife.add(recyclercontent);
                   //  wildlife.add(recyclercontent);
                   //  Collections.reverse(array_class.arrayurl);
-                    Collections.reverse(array_class.wildlife);
+
                 }
+                Collections.reverse(array_class.wildlife);
 
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
@@ -102,8 +103,9 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl2.add(ringtonecontent);
-                    Collections.reverse(array_class.arrayurl2);
+
                 }
+                Collections.reverse(array_class.arrayurl2);
 
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())

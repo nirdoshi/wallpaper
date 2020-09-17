@@ -119,8 +119,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                   //  array_class.arrayurl.add(recyclercontent);
                    // trend.add(recyclercontent);
                     //Collections.reverse(array_class.arrayurl);
-                    Collections.reverse(array_class.trend);
+
                 }
+                Collections.reverse(array_class.trend);
 
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "not working", Toast.LENGTH_SHORT).show();
             }
         });
+        //Collections.reverse(array_class.trend);
 
         array_class.arrayurl2.clear();
         reff2.addValueEventListener(new ValueEventListener() {
@@ -146,8 +148,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl2.add(ringtonecontent);
-                    Collections.reverse(array_class.arrayurl2);
+
                 }
+                Collections.reverse(array_class.arrayurl2);
 
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())

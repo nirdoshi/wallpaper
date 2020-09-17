@@ -78,9 +78,9 @@ public class travel extends AppCompatActivity implements NavigationView.OnNaviga
                     array_class.travel.add(recyclercontent);
                   //  travel.add(recyclercontent);
                    // Collections.reverse(array_class.arrayurl);
-                    Collections.reverse(array_class.travel);
-                }
 
+                }
+                Collections.reverse(array_class.travel);
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
                             .commit();
@@ -104,8 +104,9 @@ public class travel extends AppCompatActivity implements NavigationView.OnNaviga
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl2.add(ringtonecontent);
-                    Collections.reverse(array_class.arrayurl2);
+
                 }
+                Collections.reverse(array_class.arrayurl2);
 
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())

@@ -1,6 +1,7 @@
 package com.napps.wallpaper;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
@@ -334,6 +335,7 @@ public class setwallpaper extends AppCompatActivity{
 
 
 
+  @SuppressLint("StaticFieldLeak")
   public class settask extends AsyncTask<String,Void, Bitmap> {
 
 
@@ -381,6 +383,7 @@ public class setwallpaper extends AppCompatActivity{
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class settask2 extends AsyncTask<String,Void, Bitmap> {
 
         @Override

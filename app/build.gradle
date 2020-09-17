@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.napps.wallpaper"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 6
         versionName "1.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

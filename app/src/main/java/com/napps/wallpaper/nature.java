@@ -77,8 +77,9 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
                    // array_class.arrayurl.add(recyclercontent);
                    // nature.add(recyclercontent);
                     //Collections.reverse(array_class.arrayurl);
-                    Collections.reverse(array_class.nature);
+
                 }
+                Collections.reverse(array_class.nature);
 
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
@@ -103,9 +104,10 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
 
                     //String url=data.getValue().toString();
                     array_class.arrayurl2.add(ringtonecontent);
-                    Collections.reverse(array_class.arrayurl2);
+
 
                 }
+                Collections.reverse(array_class.arrayurl2);
 
                 if (savedInstanceState==null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
