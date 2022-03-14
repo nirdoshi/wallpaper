@@ -18,11 +18,19 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,12 +38,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class wildlife extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        imageAdapter.itemclicked,Rintone_adapter.itemclicked2{
+        imageAdapter.itemclicked{
 
     DrawerLayout drawer;
     //DrawerLayout drawer;
@@ -54,44 +68,94 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
         setContentView(R.layout.activity_wildlife);
         MainActivity.key=105;
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Wildlife wallpaper");
+        toolbar.setTitle("Wildlife Wallpapers");
         setSupportActionBar(toolbar);
         final NavigationView navigationView=findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
 
+
+        //fetching data from api;
+        array_class.wildlife.clear();
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://api.pexels.com/v1/search?query=pets&orientation=portrait&per_page=80";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //Log.d("response",response.toString());
+                        try {
+                            JSONArray photos = response.getJSONArray("photos");
+                            for (int i=0; i<photos.length();i++){
+                                JSONObject obj = photos.getJSONObject(i);
+                                String url = obj.getJSONObject("src").getString("portrait");
+                                // Log.d("url",url);
+                                recyclercontent = new recyclercontent();
+                                recyclercontent.setImage(url);
+                                array_class.wildlife.add(recyclercontent);
+                                //Log.d("test",array_class.trend.get(i).getImage());
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (savedInstanceState == null){
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_wallpaper()).commit();
+                            navigationView.setCheckedItem(R.id.nav_wallpaper);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("error",error.getLocalizedMessage());
+                        // TODO: Handle error
+
+                    }
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization","563492ad6f917000010000018847b2816aa04f2c94801b34f49b76bf");
+                return params;
+            }
+        };
+        queue.add(jsonObjectRequest);
+        //end of fetching data.
+
+
         database= FirebaseDatabase.getInstance();
         reff2=database.getReference("ringtones").child("trending");
-        reff=database.getReference("wallpapers").child("wildlife");
-       array_class.wildlife.clear();
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                array_class.wildlife.clear();
-                for (DataSnapshot data:dataSnapshot.getChildren()){
-                    recyclercontent=data.getValue(recyclercontent.class);
-
-                    //String url=data.getValue().toString();
-                    array_class.wildlife.add(recyclercontent);
-                  //  wildlife.add(recyclercontent);
-                  //  Collections.reverse(array_class.arrayurl);
-
-                }
-                Collections.reverse(array_class.wildlife);
-
-                if (savedInstanceState==null) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
-                            .commit();
-                    navigationView.setCheckedItem(R.id.nav_wallpaper);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(wildlife.this, "not working", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        reff=database.getReference("wallpapers").child("wildlife");
+//       array_class.wildlife.clear();
+//        reff.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                array_class.wildlife.clear();
+//                for (DataSnapshot data:dataSnapshot.getChildren()){
+//                    recyclercontent=data.getValue(recyclercontent.class);
+//
+//                    //String url=data.getValue().toString();
+//                    array_class.wildlife.add(recyclercontent);
+//                  //  wildlife.add(recyclercontent);
+//                  //  Collections.reverse(array_class.arrayurl);
+//
+//                }
+//                Collections.reverse(array_class.wildlife);
+//
+//                if (savedInstanceState==null) {
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
+//                            .commit();
+//                    navigationView.setCheckedItem(R.id.nav_wallpaper);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Toast.makeText(wildlife.this, "not working", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         array_class.arrayurl2.clear();
         reff2.addValueEventListener(new ValueEventListener() {
@@ -129,8 +193,8 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        Intent intent=new Intent(wildlife.this,MainActivity.class);
-        setResult(RESULT_OK,intent);
+//        Intent intent=new Intent(wildlife.this,MainActivity.class);
+//        setResult(RESULT_OK,intent);
 
 
 
@@ -161,8 +225,9 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
                 break;
             case R.id.nav_ringtone:
                 toolbar.setTitle("Trending Ringtones");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_ringtone())
-                        .commit();
+                menuItem.setCheckable(false);
+                Intent intent1 = new Intent(this, Ringtone_Refresh.class);
+                startActivityForResult(intent1,1);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -176,12 +241,13 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
         // String url= array_class.arrayurl.get(index).getImage();
         intent.putExtra("url",index);
         startActivityForResult(intent,0);
-        Toast.makeText(this, "please wait", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "click anywhere", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
         MainActivity.key=105;
+        toolbar.setTitle("Wildlife Wallpapers");
         /*
         super.onActivityResult(requestCode, resultCode, data);
         final NavigationView navigationView=findViewById(R.id.nav_view);
@@ -209,19 +275,24 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
 
     }
 
-    @Override
-    public void onitemclicked2(int index) {
-        Intent intent=new Intent(wildlife.this,music_info.class);
-        intent.putExtra("audiourl",index);
-        startActivityForResult(intent,2);
-    }
-
-    @Override
-    public void iv(int index) {
-        Intent intent=new Intent(wildlife.this,music_info.class);
-        intent.putExtra("audiourl",index);
-        startActivityForResult(intent,3);
-    }
+//    @Override
+//    public void onitemclicked2(int index, View v) {
+//        Intent intent=new Intent(wildlife.this,music_info.class);
+//        intent.putExtra("audiourl",index);
+//        startActivityForResult(intent,2);
+//    }
+//
+//    @Override
+//    public void iv(int index, View v) {
+//        Intent intent=new Intent(wildlife.this,music_info.class);
+//        intent.putExtra("audiourl",index);
+//        startActivityForResult(intent,3);
+//    }
+//
+//    @Override
+//    public void download(int index, View view) throws IOException {
+//
+//    }
 
 
 }

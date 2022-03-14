@@ -49,7 +49,7 @@ public class settingimagehelper implements Target {
 
 
         */
-        Toast.makeText(context, "Image downloaded", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Image downloaded", Toast.LENGTH_SHORT).show();
     }
 
     @Override

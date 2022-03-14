@@ -99,28 +99,31 @@ public class setwallpaper extends AppCompatActivity{
             index=postion;
         SharedPreferences sharedPreferences=getSharedPreferences("key",MODE_PRIVATE);
         int val=sharedPreferences.getInt("trend",0);
-        if (MainActivity.key==100) {
-            Picasso.get().load(array_class.trend.get(postion).getImage()).into(imageView_set);
-        }
-        if (MainActivity.key==101){
-            Picasso.get().load(array_class.car.get(postion).getImage()).into(imageView_set);
+        if (MainActivity.skey==106){
+            Picasso.get().load(array_class.test.get(postion).getImage()).into(imageView_set);
+        }else {
+            if (MainActivity.key == 100) {
+                Picasso.get().load(array_class.trend.get(postion).getImage()).into(imageView_set);
+            }
+            if (MainActivity.key == 101) {
+                Picasso.get().load(array_class.car.get(postion).getImage()).into(imageView_set);
 
-        }
-        if (MainActivity.key==102){
-            Picasso.get().load(array_class.nature.get(postion).getImage()).into(imageView_set);
+            }
+            if (MainActivity.key == 102) {
+                Picasso.get().load(array_class.nature.get(postion).getImage()).into(imageView_set);
 
-        }
-        if (MainActivity.key==103){
-            Picasso.get().load(array_class.travel.get(postion).getImage()).into(imageView_set);
+            }
+            if (MainActivity.key == 103) {
+                Picasso.get().load(array_class.travel.get(postion).getImage()).into(imageView_set);
 
-        }
-        if (MainActivity.key==104){
-            Picasso.get().load(array_class.bikes.get(postion).getImage()).into(imageView_set);
+            }
+            if (MainActivity.key == 104) {
+                Picasso.get().load(array_class.bikes.get(postion).getImage()).into(imageView_set);
 
-        }
-        if (MainActivity.key==105){
-            Picasso.get().load(array_class.wildlife.get(postion).getImage()).into(imageView_set);
-
+            }
+            if (MainActivity.key == 105) {
+                Picasso.get().load(array_class.wildlife.get(postion).getImage()).into(imageView_set);
+            }
         }
 
         imageView_set.setOnClickListener(new View.OnClickListener() {
@@ -141,28 +144,36 @@ public class setwallpaper extends AppCompatActivity{
                                 // of the selected item
                                 switch (which) {
                                     case 0:
-                                        if (MainActivity.key==100) {
-                                            new settask().execute(array_class.trend.get(index).getImage());
-                                        }
-                                        if (MainActivity.key==101){
-                                            new settask().execute(array_class.car.get(index).getImage());
+                                        if(MainActivity.skey==106){
+                                            new settask().execute(array_class.test.get(index).getImage());
+                                        }else {
+                                            if (MainActivity.key == 100) {
+                                                new settask().execute(array_class.trend.get(index).getImage());
+                                            }
+                                            if (MainActivity.key == 101) {
+                                                new settask().execute(array_class.car.get(index).getImage());
 
-                                        }
-                                        if (MainActivity.key==102){
-                                            new settask().execute(array_class.nature.get(index).getImage());
+                                            }
+                                            if (MainActivity.key == 102) {
+                                                new settask().execute(array_class.nature.get(index).getImage());
 
-                                        }
-                                        if (MainActivity.key==103){
-                                            new settask().execute(array_class.travel.get(index).getImage());
+                                            }
+                                            if (MainActivity.key == 103) {
+                                                new settask().execute(array_class.travel.get(index).getImage());
 
-                                        }
-                                        if (MainActivity.key==104){
-                                            new settask().execute(array_class.bikes.get(index).getImage());
+                                            }
+                                            if (MainActivity.key == 104) {
+                                                new settask().execute(array_class.bikes.get(index).getImage());
 
-                                        }
-                                        if (MainActivity.key==105){
-                                            new settask().execute(array_class.wildlife.get(index).getImage());
+                                            }
+                                            if (MainActivity.key == 105) {
+                                                new settask().execute(array_class.wildlife.get(index).getImage());
 
+                                            }
+//                                            if (MainActivity.skey == 106) {
+//                                                new settask().execute(array_class.test.get(index).getImage());
+//
+//                                            }
                                         }
 
                                         //setimage();
@@ -170,28 +181,32 @@ public class setwallpaper extends AppCompatActivity{
                                         break;
                                     case 1:
                                        // setlockimage();
-                                        if (MainActivity.key==100) {
-                                            new settask2().execute(array_class.trend.get(index).getImage());
-                                        }
-                                        if (MainActivity.key==101){
-                                            new settask2().execute(array_class.car.get(index).getImage());
+                                        if (MainActivity.skey==106){
+                                            new settask2().execute(array_class.test.get(index).getImage());
+                                        }else {
+                                            if (MainActivity.key == 100) {
+                                                new settask2().execute(array_class.trend.get(index).getImage());
+                                            }
+                                            if (MainActivity.key == 101) {
+                                                new settask2().execute(array_class.car.get(index).getImage());
 
-                                        }
-                                        if (MainActivity.key==102){
-                                            new settask2().execute(array_class.nature.get(index).getImage());
+                                            }
+                                            if (MainActivity.key == 102) {
+                                                new settask2().execute(array_class.nature.get(index).getImage());
 
-                                        }
-                                        if (MainActivity.key==103){
-                                            new settask2().execute(array_class.travel.get(index).getImage());
+                                            }
+                                            if (MainActivity.key == 103) {
+                                                new settask2().execute(array_class.travel.get(index).getImage());
 
-                                        }
-                                        if (MainActivity.key==104){
-                                            new settask2().execute(array_class.bikes.get(index).getImage());
+                                            }
+                                            if (MainActivity.key == 104) {
+                                                new settask2().execute(array_class.bikes.get(index).getImage());
 
-                                        }
-                                        if (MainActivity.key==105){
-                                            new settask2().execute(array_class.wildlife.get(index).getImage());
+                                            }
+                                            if (MainActivity.key == 105) {
+                                                new settask2().execute(array_class.wildlife.get(index).getImage());
 
+                                            }
                                         }
                                         //Toast.makeText(setwallpaper.this, "hello", Toast.LENGTH_SHORT).show();
                                         break;
@@ -210,35 +225,41 @@ public class setwallpaper extends AppCompatActivity{
                                         }else {
 
                                             final String filename= UUID.randomUUID().toString()+".jpg";
-                                            if (MainActivity.key==100){
-                                            Picasso.get().load(array_class.trend.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
-                                                    getApplicationContext().getContentResolver()
-                                                    ,filename,"image desc"));
-                                            }
-                                            if (MainActivity.key==101){
-                                                Picasso.get().load(array_class.car.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                            if (MainActivity.skey==106){
+                                                Picasso.get().load(array_class.test.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
                                                         getApplicationContext().getContentResolver()
-                                                        ,filename,"image desc"));
-                                            }
-                                            if (MainActivity.key==102){
-                                                Picasso.get().load(array_class.nature.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
-                                                        getApplicationContext().getContentResolver()
-                                                        ,filename,"image desc"));
-                                            }
-                                            if (MainActivity.key==103){
-                                                Picasso.get().load(array_class.travel.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
-                                                        getApplicationContext().getContentResolver()
-                                                        ,filename,"image desc"));
-                                            }
-                                            if (MainActivity.key==104){
-                                                Picasso.get().load(array_class.bikes.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
-                                                        getApplicationContext().getContentResolver()
-                                                        ,filename,"image desc"));
-                                            }
-                                            if (MainActivity.key==105){
-                                                Picasso.get().load(array_class.wildlife.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
-                                                        getApplicationContext().getContentResolver()
-                                                        ,filename,"image desc"));
+                                                        , filename, "image desc"));
+                                            }else {
+                                                if (MainActivity.key == 100) {
+                                                    Picasso.get().load(array_class.trend.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                            getApplicationContext().getContentResolver()
+                                                            , filename, "image desc"));
+                                                }
+                                                if (MainActivity.key == 101) {
+                                                    Picasso.get().load(array_class.car.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                            getApplicationContext().getContentResolver()
+                                                            , filename, "image desc"));
+                                                }
+                                                if (MainActivity.key == 102) {
+                                                    Picasso.get().load(array_class.nature.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                            getApplicationContext().getContentResolver()
+                                                            , filename, "image desc"));
+                                                }
+                                                if (MainActivity.key == 103) {
+                                                    Picasso.get().load(array_class.travel.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                            getApplicationContext().getContentResolver()
+                                                            , filename, "image desc"));
+                                                }
+                                                if (MainActivity.key == 104) {
+                                                    Picasso.get().load(array_class.bikes.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                            getApplicationContext().getContentResolver()
+                                                            , filename, "image desc"));
+                                                }
+                                                if (MainActivity.key == 105) {
+                                                    Picasso.get().load(array_class.wildlife.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                            getApplicationContext().getContentResolver()
+                                                            , filename, "image desc"));
+                                                }
                                             }
                                         }
                                         Toast.makeText(setwallpaper.this, "downloaded", Toast.LENGTH_SHORT).show();
