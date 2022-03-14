@@ -212,13 +212,15 @@ public class nature extends AppCompatActivity implements NavigationView.OnNaviga
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_wallpaper:
-                toolbar.setTitle("Trending Wallpaper");
-                //startActivity(new Intent(cars.this,MainActivity.class));
-                Intent intent=new Intent(nature.this,MainActivity.class);
-                setResult(RESULT_OK,intent);
-                startActivity(intent);
+//                toolbar.setTitle("Trending Wallpaper");
+//                MainActivity.key=100;
+//                //startActivity(new Intent(cars.this,MainActivity.class));
+//                Intent intent=new Intent(nature.this,MainActivity.class);
+//                setResult(RESULT_OK,intent);
+//                startActivity(intent);
                 // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
                 //       .commit();
+                Toast.makeText(this, "You are already in wallpapers section", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_ringtone:
                 toolbar.setTitle("Trending Ringtones");
