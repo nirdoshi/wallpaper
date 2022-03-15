@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -59,10 +60,9 @@ public class travel extends AppCompatActivity implements NavigationView.OnNaviga
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
 
-    DownloadManager downloadManager;
-    MediaPlayer mediaPlayer;
     Toolbar toolbar;
-   // ArrayList<recyclercontent> travel=new ArrayList<>();
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +79,10 @@ public class travel extends AppCompatActivity implements NavigationView.OnNaviga
         array_class.travel.clear();
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://api.pexels.com/v1/search?query=travel&orientation=portrait&per_page=80";
+        progressDialog = new ProgressDialog(this);
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -96,6 +100,7 @@ public class travel extends AppCompatActivity implements NavigationView.OnNaviga
                                 array_class.travel.add(recyclercontent);
                                 //Log.d("test",array_class.trend.get(i).getImage());
                             }
+                            progressDialog.dismiss();
 
                         } catch (JSONException e) {
                             e.printStackTrace();

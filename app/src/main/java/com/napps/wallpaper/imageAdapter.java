@@ -1,5 +1,6 @@
 package com.napps.wallpaper;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ public class imageAdapter extends RecyclerView.Adapter<imageAdapter.viewholder> 
     RequestQueue queue;
     itemclicked activity;
     recyclercontent recyclercontent;
+
     Filter filter=new Filter() {
         @Override
         //background thread;
@@ -59,7 +61,6 @@ public class imageAdapter extends RecyclerView.Adapter<imageAdapter.viewholder> 
 
             }else{
 
-
                 String url = "https://api.pexels.com/v1/search?query="+charSequence+"&orientation=portrait&per_page=80";
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                         (Request.Method.GET, url, null, new Response.Listener<JSONObject >() {
@@ -77,6 +78,7 @@ public class imageAdapter extends RecyclerView.Adapter<imageAdapter.viewholder> 
                                         recyclercontent.setImage(url);
 
                                         filteredList.add(recyclercontent);
+
                                         notifyDataSetChanged();
                                         //  Log.d("test",array_class.trend.get(i).getImage());
                                     }

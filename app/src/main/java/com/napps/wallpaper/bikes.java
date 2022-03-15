@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -59,11 +60,9 @@ public class bikes extends AppCompatActivity implements NavigationView.OnNavigat
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
 
-    DownloadManager downloadManager;
-    MediaPlayer mediaPlayer;
     Toolbar toolbar;
-    Button btn_bikes;
-   // ArrayList<recyclercontent> bikes=new ArrayList<>();
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +78,10 @@ public class bikes extends AppCompatActivity implements NavigationView.OnNavigat
         array_class.bikes.clear();
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://api.pexels.com/v1/search?query=abstract&orientation=portrait&per_page=80";
+        progressDialog = new ProgressDialog(this);
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -96,6 +99,7 @@ public class bikes extends AppCompatActivity implements NavigationView.OnNavigat
                                 array_class.bikes.add(recyclercontent);
                                 //Log.d("test",array_class.trend.get(i).getImage());
                             }
+                            progressDialog.dismiss();
 
                         } catch (JSONException e) {
                             e.printStackTrace();

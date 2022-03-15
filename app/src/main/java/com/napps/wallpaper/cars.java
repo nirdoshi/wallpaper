@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -57,12 +58,9 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
     DatabaseReference reff,reff2;
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
-   // ArrayList<recyclercontent> car=new ArrayList<>();
-    DownloadManager downloadManager;
-    MediaPlayer mediaPlayer;
+
     Toolbar toolbar;
-
-
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -81,6 +79,10 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
         array_class.car.clear();
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://api.pexels.com/v1/search?query=cars&orientation=portrait&per_page=80";
+        progressDialog = new ProgressDialog(this);
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -98,6 +100,8 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
                                 array_class.car.add(recyclercontent);
                                 //Log.d("test",array_class.trend.get(i).getImage());
                             }
+
+                            progressDialog.dismiss();
 
                         } catch (JSONException e) {
                             e.printStackTrace();

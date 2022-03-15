@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -58,10 +59,10 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
 
-    DownloadManager downloadManager;
-    MediaPlayer mediaPlayer;
     Toolbar toolbar;
-   // ArrayList<recyclercontent> wildlife=new ArrayList<>();
+
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,13 +74,15 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
         final NavigationView navigationView=findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
-
         //fetching data from api;
         array_class.wildlife.clear();
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://api.pexels.com/v1/search?query=pets&orientation=portrait&per_page=80";
+        progressDialog = new ProgressDialog(this);
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading");
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -97,6 +100,8 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
                                 array_class.wildlife.add(recyclercontent);
                                 //Log.d("test",array_class.trend.get(i).getImage());
                             }
+
+                            progressDialog.dismiss();
 
                         } catch (JSONException e) {
                             e.printStackTrace();

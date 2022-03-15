@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int skey=69;
     //  RecyclerView.LayoutManager layoutManager;
 
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -122,9 +123,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //fetching data from api;
         array_class.trend.clear();
+        progressDialog = new ProgressDialog(MainActivity.this);
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://api.pexels.com/v1/search?query=trending wallpapers&orientation=portrait&per_page=80";
-
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject >() {
 
@@ -142,8 +146,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 recyclercontent.setImage(url);
                                 array_class.trend.add(recyclercontent);
                               //  Log.d("test",array_class.trend.get(i).getImage());
-                            }
 
+                            }
+                            progressDialog.dismiss();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -152,6 +157,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_wallpaper()).commit();
                             navigationView.setCheckedItem(R.id.nav_wallpaper);
                         }
+
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
