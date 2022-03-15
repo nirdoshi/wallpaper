@@ -384,23 +384,34 @@ public class setwallpaper extends AppCompatActivity{
 
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
-           // WallpaperManager wallpaperManager = WallpaperManager.getInstance(getBaseContext());
-            WallpaperManager wallpaperManager=(WallpaperManager) getSystemService(Context.WALLPAPER_SERVICE);
-            //wallpaperManager.setWallpaperOffsetSteps(1,1);
-            //Toast.makeText(setwallpaper.this, "hagaggaga", Toast.LENGTH_SHORT).show();
+            WallpaperManager wallpaperManager = WallpaperManager.getInstance(getBaseContext());
+            // Toast.makeText(setwallpaper.this, "hagaggaga", Toast.LENGTH_SHORT).show();
 
             try {
-                wallpaperManager.setWallpaperOffsetSteps(0,0);
-                wallpaperManager.setBitmap(bitmap);
-
+                wallpaperManager.setBitmap(bitmap,null,true,WallpaperManager.FLAG_SYSTEM);
                 progressDialog.dismiss();
-                Toast.makeText(setwallpaper.this, "wallpaper has been set", Toast.LENGTH_SHORT).show();
+                Toast.makeText(setwallpaper.this, "wallpaper set as Homescreen", Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+//           // WallpaperManager wallpaperManager = WallpaperManager.getInstance(getBaseContext());
+//            WallpaperManager wallpaperManager=(WallpaperManager) getSystemService(Context.WALLPAPER_SERVICE);
+//            //wallpaperManager.setWallpaperOffsetSteps(1,1);
+//            //Toast.makeText(setwallpaper.this, "hagaggaga", Toast.LENGTH_SHORT).show();
+//
+//            try {
+//                wallpaperManager.setWallpaperOffsetSteps(0,0);
+//                wallpaperManager.setBitmap(bitmap);
+//
+//                progressDialog.dismiss();
+//                Toast.makeText(setwallpaper.this, "wallpaper has been set", Toast.LENGTH_SHORT).show();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 
@@ -440,7 +451,7 @@ public class setwallpaper extends AppCompatActivity{
             try {
                 wallpaperManager.setBitmap(bitmap,null,true,WallpaperManager.FLAG_LOCK);
                 progressDialog.dismiss();
-                Toast.makeText(setwallpaper.this, "wallpaper set as lockscreen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(setwallpaper.this, "wallpaper set as Lockscreen", Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }

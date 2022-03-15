@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -52,7 +53,8 @@ public class fragment_wallpaper extends Fragment {
     View view;
     Button btncars,btn_nature,btn_travel,btn_bikes,btn_wildlife;
     imageAdapter imageAdapter;
-    recyclercontent recyclercontent;
+
+    LinearLayout linearLayout;
     public fragment_wallpaper(){
 
     }
@@ -64,7 +66,7 @@ public class fragment_wallpaper extends Fragment {
 
 
          view= inflater.inflate(R.layout.fragment_wallpaper,container,false);
-            
+         linearLayout = view.findViewById(R.id.llay);
          btncars=view.findViewById(R.id.btncars);
          btn_nature=view.findViewById(R.id.btn_nature);
          btn_travel=view.findViewById(R.id.btn_travel);
@@ -236,6 +238,11 @@ public class fragment_wallpaper extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (newText.toString().isEmpty()){
+                    linearLayout.setVisibility(View.VISIBLE);
+                }else{
+                    linearLayout.setVisibility(View.GONE);
+                }
                 imageAdapter.getFilter().filter(newText);
                 return false;
             }
