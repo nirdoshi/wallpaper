@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         array_class.trend.clear();
         progressDialog = new ProgressDialog(MainActivity.this);
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://api.pexels.com/v1/search?query=trending wallpapers&orientation=portrait&per_page=80";
+        String url = "https://api.pexels.com/v1/search?query=new wallpapers wallpapers&orientation=portrait&per_page=80";
         progressDialog.show();
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading");

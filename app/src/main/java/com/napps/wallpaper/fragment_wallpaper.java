@@ -233,6 +233,14 @@ public class fragment_wallpaper extends Fragment {
 //                Intent intent = new Intent(getActivity(),wildlife.class);
 //                intent.putExtra("chr","kite");
 //                startActivityForResult(intent,1);
+//
+//
+                if(query.toString().isEmpty()){
+                    linearLayout.setVisibility(View.VISIBLE);
+                }else{
+                    linearLayout.setVisibility(View.GONE);
+                }
+                imageAdapter.getFilter().filter(query);
                 return false;
             }
 
@@ -240,10 +248,9 @@ public class fragment_wallpaper extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 if (newText.toString().isEmpty()){
                     linearLayout.setVisibility(View.VISIBLE);
-                }else{
-                    linearLayout.setVisibility(View.GONE);
+                    imageAdapter.getFilter().filter(newText);
                 }
-                imageAdapter.getFilter().filter(newText);
+
                 return false;
             }
         });
