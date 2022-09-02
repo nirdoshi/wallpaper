@@ -10,11 +10,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -34,26 +36,18 @@ public class setwallpaper extends AppCompatActivity{
 
 
     private static final int PERMISSION_REQUEST_CODE =1000 ;
-   // DrawerLayout drawer;
-    //Button btn_set,btn_download;
+
     ImageView imageView_set;
     int index;
     ProgressBar progressBar;
     AlertDialog.Builder builder;
     public ProgressDialog progressDialog;
-    //WeakReference<ContentResolver> contentResolverWeakReference ;
-
-
-    //ProgressDialog mProgressDialog;
-
+    public static boolean handle= false;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-
-
-      //  contentResolverWeakReference = new WeakReference<ContentResolver>(getApplicationContext().getContentResolver());
 
         switch (requestCode){
             case PERMISSION_REQUEST_CODE:
@@ -64,8 +58,6 @@ public class setwallpaper extends AppCompatActivity{
                     Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show();
                 }
             }
-
-
                 break;
         }
     }
@@ -81,15 +73,8 @@ public class setwallpaper extends AppCompatActivity{
 
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
 
-
             },PERMISSION_REQUEST_CODE);
         }
-
-
-       // Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //final NavigationView navigationView=findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
 
         imageView_set=findViewById(R.id.imageview_set);
 
@@ -97,11 +82,10 @@ public class setwallpaper extends AppCompatActivity{
         //String url=intent.getStringExtra("url");
             int postion=getIntent().getIntExtra("url",0);
             index=postion;
-        SharedPreferences sharedPreferences=getSharedPreferences("key",MODE_PRIVATE);
-        int val=sharedPreferences.getInt("trend",0);
-        if (MainActivity.skey==106){
-            Picasso.get().load(array_class.test.get(postion).getImage()).into(imageView_set);
-        }else {
+
+//        if (MainActivity.skey==106){
+//            Picasso.get().load(array_class.test.get(postion).getImage()).into(imageView_set);
+//        }else {
             if (MainActivity.key == 100) {
                 Picasso.get().load(array_class.trend.get(postion).getImage()).into(imageView_set);
             }
@@ -124,15 +108,14 @@ public class setwallpaper extends AppCompatActivity{
             if (MainActivity.key == 105) {
                 Picasso.get().load(array_class.wildlife.get(postion).getImage()).into(imageView_set);
             }
-        }
+            if (MainActivity.key == 107) {
+                Picasso.get().load(array_class.test.get(postion).getImage()).into(imageView_set);
+            }
+     //   }
 
         imageView_set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-               // WallpaperManager wallpaperManager = WallpaperManager.getInstance(setwallpaper.this);
-
-
 
                 builder = new AlertDialog.Builder(setwallpaper.this);
                 builder.setTitle("Choose Options");
@@ -144,13 +127,15 @@ public class setwallpaper extends AppCompatActivity{
                                 // of the selected item
                                 switch (which) {
                                     case 0:
-                                        if(MainActivity.skey==106){
-                                            new settask().execute(array_class.test.get(index).getImage());
-                                        }else {
+//                                        if(MainActivity.skey==106){
+//                                            new settask().execute(array_class.test.get(index).getImage());
+//                                        }else {
                                             if (MainActivity.key == 100) {
+
                                                 new settask().execute(array_class.trend.get(index).getImage());
                                             }
                                             if (MainActivity.key == 101) {
+
                                                 new settask().execute(array_class.car.get(index).getImage());
 
                                             }
@@ -170,24 +155,24 @@ public class setwallpaper extends AppCompatActivity{
                                                 new settask().execute(array_class.wildlife.get(index).getImage());
 
                                             }
-//                                            if (MainActivity.skey == 106) {
-//                                                new settask().execute(array_class.test.get(index).getImage());
-//
-//                                            }
-                                        }
+                                            if (MainActivity.key == 107) {
+                                                new settask().execute(array_class.test.get(index).getImage());
 
-                                        //setimage();
-                                       // Toast.makeText(setwallpaper.this, "hello", Toast.LENGTH_SHORT).show();
+                                            }
+                                      //  }
+                                        handle=true;
                                         break;
                                     case 1:
                                        // setlockimage();
-                                        if (MainActivity.skey==106){
-                                            new settask2().execute(array_class.test.get(index).getImage());
-                                        }else {
+//                                        if (MainActivity.skey==106){
+//                                            new settask2().execute(array_class.test.get(index).getImage());
+//                                        }else {
                                             if (MainActivity.key == 100) {
+
                                                 new settask2().execute(array_class.trend.get(index).getImage());
                                             }
                                             if (MainActivity.key == 101) {
+
                                                 new settask2().execute(array_class.car.get(index).getImage());
 
                                             }
@@ -207,8 +192,13 @@ public class setwallpaper extends AppCompatActivity{
                                                 new settask2().execute(array_class.wildlife.get(index).getImage());
 
                                             }
-                                        }
-                                        //Toast.makeText(setwallpaper.this, "hello", Toast.LENGTH_SHORT).show();
+                                            if (MainActivity.key == 107) {
+                                                new settask2().execute(array_class.test.get(index).getImage());
+
+                                            }
+                                    //    }
+
+                                        handle=true;
                                         break;
                                     case 2:
 
@@ -225,11 +215,11 @@ public class setwallpaper extends AppCompatActivity{
                                         }else {
 
                                             final String filename= UUID.randomUUID().toString()+".jpg";
-                                            if (MainActivity.skey==106){
-                                                Picasso.get().load(array_class.test.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
-                                                        getApplicationContext().getContentResolver()
-                                                        , filename, "image desc"));
-                                            }else {
+//                                            if (MainActivity.skey==106){
+//                                                Picasso.get().load(array_class.test.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+//                                                        getApplicationContext().getContentResolver()
+//                                                        , filename, "image desc"));
+//                                            }else {
                                                 if (MainActivity.key == 100) {
                                                     Picasso.get().load(array_class.trend.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
                                                             getApplicationContext().getContentResolver()
@@ -260,7 +250,12 @@ public class setwallpaper extends AppCompatActivity{
                                                             getApplicationContext().getContentResolver()
                                                             , filename, "image desc"));
                                                 }
-                                            }
+                                                if (MainActivity.key == 107) {
+                                                    Picasso.get().load(array_class.test.get(index).getImage()).into(new settingimagehelper(setwallpaper.this,
+                                                            getApplicationContext().getContentResolver()
+                                                            , filename, "image desc"));
+                                                }
+                                           // }
                                         }
                                         Toast.makeText(setwallpaper.this, "downloaded", Toast.LENGTH_SHORT).show();
                                         break;
@@ -274,92 +269,19 @@ public class setwallpaper extends AppCompatActivity{
             }
         });
 
-
-
         setResult(99,intent);
 
     }
 
-/*
-    private void setimage() {
-
-        Picasso.get()
-                .load(array_class.arrayurl.get(index).getImage())
-                .into(new Target() {
-                    @Override
-                    public void onBitmapLoaded (final Bitmap bitmap, Picasso.LoadedFrom from){
-                        // Save the bitmap or do something with it here
-                       // progressBar.setVisibility(View.VISIBLE);
-                        //Set it in the ImageView
-                        WallpaperManager wallpaperManager = WallpaperManager.getInstance(setwallpaper.this);
-                        try {
-                            wallpaperManager.setBitmap(bitmap);
-                         //   progressBar.setVisibility(View.GONE);
-                           // Toast.makeText(setwallpaper.this, "wallpaper set as background", Toast.LENGTH_SHORT).show();
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-                      //  progressBar.setVisibility(View.VISIBLE);
-                    }
-                });
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d("configuration changed",newConfig+"");
     }
-
- */
-
-   /*
-    private void setlockimage() {
-
-        Picasso.get()
-        .load(array_class.arrayurl.get(index).getImage())
-        .into(new Target() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onBitmapLoaded (final Bitmap bitmap, Picasso.LoadedFrom from){
-       // Save the bitmap or do something with it here
-        //progressBar.setVisibility(View.VISIBLE);
-        //Set it in the ImageView
-        WallpaperManager wallpaperManager = WallpaperManager.getInstance(setwallpaper.this);
-        try {
-        wallpaperManager.setBitmap(bitmap,null,true,WallpaperManager.FLAG_LOCK);
-        //progressBar.setVisibility(View.GONE);
-        //Toast.makeText(setwallpaper.this, "wallpaper set as background", Toast.LENGTH_SHORT).show();
-        } catch (IOException ex) {
-        ex.printStackTrace();
-        }
-
-        }
-
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-        }
-
-        @Override
-        public void onPrepareLoad(Drawable placeHolderDrawable) {
-       // progressBar.setVisibility(View.VISIBLE);
-        }
-        });
-    }
-*/
-
-
 
 
   @SuppressLint("StaticFieldLeak")
   public class settask extends AsyncTask<String,Void, Bitmap> {
-
-
 
       @Override
         protected Bitmap doInBackground(String... strings)
@@ -389,7 +311,6 @@ public class setwallpaper extends AppCompatActivity{
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
             WallpaperManager wallpaperManager = WallpaperManager.getInstance(getBaseContext());
-            // Toast.makeText(setwallpaper.this, "hagaggaga", Toast.LENGTH_SHORT).show();
 
             try {
                 wallpaperManager.setBitmap(bitmap,null,true,WallpaperManager.FLAG_SYSTEM);
@@ -398,20 +319,6 @@ public class setwallpaper extends AppCompatActivity{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//           // WallpaperManager wallpaperManager = WallpaperManager.getInstance(getBaseContext());
-//            WallpaperManager wallpaperManager=(WallpaperManager) getSystemService(Context.WALLPAPER_SERVICE);
-//            //wallpaperManager.setWallpaperOffsetSteps(1,1);
-//            //Toast.makeText(setwallpaper.this, "hagaggaga", Toast.LENGTH_SHORT).show();
-//
-//            try {
-//                wallpaperManager.setWallpaperOffsetSteps(0,0);
-//                wallpaperManager.setBitmap(bitmap);
-//
-//                progressDialog.dismiss();
-//                Toast.makeText(setwallpaper.this, "wallpaper has been set", Toast.LENGTH_SHORT).show();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
         }
     }
 
@@ -446,7 +353,6 @@ public class setwallpaper extends AppCompatActivity{
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
             WallpaperManager wallpaperManager = WallpaperManager.getInstance(getBaseContext());
-           // Toast.makeText(setwallpaper.this, "hagaggaga", Toast.LENGTH_SHORT).show();
 
             try {
                 wallpaperManager.setBitmap(bitmap,null,true,WallpaperManager.FLAG_LOCK);

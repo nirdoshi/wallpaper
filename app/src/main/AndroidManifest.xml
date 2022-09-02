@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".search_activity"
+            android:exported="false" />
+        <activity
             android:name=".Ringtone_Refresh"
             android:exported="false" />
         <activity
@@ -51,9 +54,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".splash"
+            android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

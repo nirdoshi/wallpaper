@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2F3131</color>
+    <color name="colorPrimary">#252525</color>
+    <color name="activityBG">#222020</color>
     <color name="colorPrimaryDark">#292828</color>
     <color name="colorAccent">#D81B60</color>
     <color name="button_color1">#9C27B0</color>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+
+        <layer-list>
+            <!-- SHADOW -->
+            <item>
+                <shape>
+                    <solid android:color="#2F3939"/>
+
+                    <corners android:radius="5dp"/>
+                </shape>
+            </item>
+            <!-- BUTTON -->
+            <item
+                android:bottom="5px"
+                android:right="5px"
+                >
+                <shape>
+
+                    <gradient android:startColor="#2AF598" android:endColor="#009EFD" android:type="linear"></gradient>
+                    <corners
+                        android:radius="5dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <item android:state_pressed="true">
+        <ripple android:color="@color/colorPrimaryDark">
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#2F3939"/>
+                    <corners android:radius="5dp"/>
+                </shape>
+            </item>
+        <item android:bottom="5px"
+            android:right="5px">
+            <shape android:shape="rectangle">
+                <gradient android:startColor="#2AF598" android:endColor="#009EFD" android:type="linear"></gradient>
+                <corners android:radius="5dp" />
+            </shape>
+         </item>
+        </ripple>
+
+        <layer-list>
+            <!-- SHADOW -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#2F3939"/>
+                    <corners android:radius="5dp"/>
+                </shape>
+            </item>
+
+            <!-- BUTTON -->
+            <item android:bottom="5px"
+                    android:right="5px">
+                <shape>
+
+                    <gradient android:startColor="#2AF598" android:endColor="#009EFD" android:type="linear"></gradient>
+                    <corners android:radius="5dp"/>
+
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+
+</selector>

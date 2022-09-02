@@ -8,21 +8,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -43,8 +33,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -106,10 +94,10 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if (savedInstanceState == null){
+                     //   if (savedInstanceState == null){
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_wallpaper()).commit();
                             navigationView.setCheckedItem(R.id.nav_wallpaper);
-                        }
+                     //   }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -192,7 +180,7 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
 
 
 
-        drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.big_image);
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -253,6 +241,7 @@ public class wildlife extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
+        setwallpaper.handle=false;
         MainActivity.key=105;
         toolbar.setTitle("Wildlife Wallpapers");
         /*

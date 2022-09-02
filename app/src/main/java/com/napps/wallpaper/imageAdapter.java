@@ -36,123 +36,113 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class imageAdapter extends RecyclerView.Adapter<imageAdapter.viewholder> implements  Filterable{
+public class imageAdapter extends RecyclerView.Adapter<imageAdapter.viewholder>{
     private ArrayList<recyclercontent> arrayurl;
-    private ArrayList<recyclercontent> arrayurlALL;
+  //  private ArrayList<recyclercontent> arrayurlALL;
     RequestQueue queue;
     itemclicked activity;
-    recyclercontent recyclercontent;
+//    recyclercontent recyclercontent;
 
-    Filter filter=new Filter() {
-        @Override
-        //background thread;
-        protected FilterResults performFiltering(CharSequence charSequence) {
-
-            List<recyclercontent> filteredList=new ArrayList<>();
-
-            Log.d("char",charSequence.toString());
-
-            if(charSequence.toString().isEmpty()){
-
-                filteredList.addAll(arrayurl);
-
-                Log.d("test",arrayurlALL.size()+"");
-                MainActivity.skey=69;
-
-            }else{
-
-                String url = "https://api.pexels.com/v1/search?query="+charSequence+"&orientation=portrait&per_page=80";
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.GET, url, null, new Response.Listener<JSONObject >() {
-
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                // Log.d("response",response.toString());
-                                try {
-                                    JSONArray photos = response.getJSONArray("photos");
-                                    for (int i=0; i<photos.length();i++){
-                                        JSONObject obj = photos.getJSONObject(i);
-                                        String url = obj.getJSONObject("src").getString("portrait");
-                                        // Log.d("url",url);
-                                        recyclercontent = new recyclercontent();
-                                        recyclercontent.setImage(url);
-
-                                        filteredList.add(recyclercontent);
-
-                                        notifyDataSetChanged();
-                                        //  Log.d("test",array_class.trend.get(i).getImage());
-                                    }
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d("error",error.getLocalizedMessage());
-                                // TODO: Handle error
-
-                            }
-                        }){
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String>  params = new HashMap<String, String>();
-                        params.put("Authorization","563492ad6f917000010000018847b2816aa04f2c94801b34f49b76bf");
-                        return params;
-                    }
-                };
-                queue.add(jsonObjectRequest);
-
-
-               // filteredList.addAll(array_class.bikes);
-            }
+//    Filter filter=new Filter() {
+//        @Override
+//        //background thread;
+//        protected FilterResults performFiltering(CharSequence charSequence) {
+//
 //            List<recyclercontent> filteredList=new ArrayList<>();
+//
+//            Log.d("char",charSequence.toString());
+//
 //            if(charSequence.toString().isEmpty()){
-//                filteredList.addAll(arrayurlALL);
+//
+//                filteredList.addAll(arrayurl);
+//
+//                Log.d("test",arrayurlALL.size()+"");
+//                MainActivity.skey=69;
+//
 //            }else{
-//                for(recyclercontent obj:arrayurlALL){
-//                    if(obj.getSearch().toLowerCase().contains(charSequence.toString().toLowerCase())){
-//                        filteredList.add(obj);
+//
+//                String url = "https://api.pexels.com/v1/search?query="+charSequence+"&orientation=portrait&per_page=80";
+//                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+//                        (Request.Method.GET, url, null, new Response.Listener<JSONObject >() {
+//
+//                            @Override
+//                            public void onResponse(JSONObject response) {
+//
+//                                try {
+//                                    JSONArray photos = response.getJSONArray("photos");
+//                                    for (int i=0; i<photos.length();i++){
+//                                        JSONObject obj = photos.getJSONObject(i);
+//                                        String url = obj.getJSONObject("src").getString("portrait");
+//                                        // Log.d("url",url);
+//                                        recyclercontent = new recyclercontent();
+//                                        recyclercontent.setImage(url);
+//
+//                                        filteredList.add(recyclercontent);
+//
+//                                        notifyDataSetChanged();
+//                                        //  Log.d("test",array_class.trend.get(i).getImage());
+//                                    }
+//
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                            }
+//                        }, new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//                                Log.d("error",error.getLocalizedMessage());
+//                                // TODO: Handle error
+//
+//                            }
+//                        }){
+//                    @Override
+//                    public Map<String, String> getHeaders() throws AuthFailureError {
+//                        Map<String, String>  params = new HashMap<String, String>();
+//                        params.put("Authorization","563492ad6f917000010000018847b2816aa04f2c94801b34f49b76bf");
+//                        return params;
 //                    }
-//                }
+//                };
+//                queue.add(jsonObjectRequest);
+//
+//
+//
 //            }
-
-            FilterResults filterResults=new FilterResults();
-            filterResults.values=filteredList;
-            filterResults.count= filteredList.size();
-            return filterResults;
-        }
-
-        @Override
-        //ui thread;
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            Log.d("char1",charSequence.toString());
-            if(charSequence.toString().isEmpty()){
-                arrayurl = arrayurlALL;
-                Log.d("test1",arrayurlALL.size()+"");
-            }else {
-               // arrayurl.clear();
-                arrayurl= (ArrayList<com.napps.wallpaper.recyclercontent>) filterResults.values;
-                Log.d("test2","some value");
-                MainActivity.skey = 106;
-                array_class.test=arrayurl;
-           }
-
-            notifyDataSetChanged();
-            // arrayurl.addAll((Collection<? extends recyclercontent>) filterResults.values);
-
-
-        }
-    };
-
-
-
-    @Override
-    public Filter getFilter() {
-        return filter;
-    }
+//
+//            FilterResults filterResults=new FilterResults();
+//            filterResults.values=filteredList;
+//            filterResults.count= filteredList.size();
+//            return filterResults;
+//        }
+//
+//        @Override
+//        //ui thread;
+//        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+//            Log.d("char1",charSequence.toString());
+//            if(charSequence.toString().isEmpty()){
+//                arrayurl = arrayurlALL;
+//                Log.d("test1",arrayurlALL.size()+"");
+//            }else {
+//
+//                arrayurl= (ArrayList<com.napps.wallpaper.recyclercontent>) filterResults.values;
+//                Log.d("test2","some value");
+//                MainActivity.skey = 106;
+//                array_class.test=arrayurl;
+//           }
+//
+//            notifyDataSetChanged();
+//
+//
+//
+//        }
+//    };
+//
+//
+//
+//    @Override
+//    public Filter getFilter() {
+//        return filter;
+//    }
 
 
     public interface itemclicked {
@@ -164,7 +154,7 @@ public class imageAdapter extends RecyclerView.Adapter<imageAdapter.viewholder> 
     public imageAdapter(Context context, ArrayList<recyclercontent> list) {
 
         arrayurl = list;
-        arrayurlALL=list;
+      //  arrayurlALL=list;
         activity = (itemclicked) context;
         queue = Volley.newRequestQueue(context);
     }

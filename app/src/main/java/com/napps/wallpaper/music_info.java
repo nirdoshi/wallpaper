@@ -13,8 +13,6 @@ import android.Manifest;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -147,7 +145,7 @@ public class music_info extends AppCompatActivity implements NavigationView.OnNa
 
 
 
-        drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.big_image);
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);

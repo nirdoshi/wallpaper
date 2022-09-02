@@ -101,10 +101,10 @@ public class Ringtone_Refresh extends AppCompatActivity implements Rintone_adapt
                 progressDialog.setMessage("please wait");
                 progressDialog.setCancelable(false);
                 progressDialog.show();
-                iv_play.setImageResource(R.drawable.pause);
+                iv_play.setImageResource(R.drawable.pause_white);
                 play(index);
             }else{
-                iv_play.setImageResource(R.drawable.play);
+                iv_play.setImageResource(R.drawable.play_white);
                 pause();
             }
         }
@@ -119,10 +119,10 @@ public class Ringtone_Refresh extends AppCompatActivity implements Rintone_adapt
                     progressDialog.setMessage("please wait");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
-                    iv_play.setImageResource(R.drawable.pause);
+                    iv_play.setImageResource(R.drawable.pause_white);
                     play(index);
                 }else{
-                    iv_play.setImageResource(R.drawable.play);
+                    iv_play.setImageResource(R.drawable.play_white);
                     pause();
                 }
 
@@ -131,7 +131,7 @@ public class Ringtone_Refresh extends AppCompatActivity implements Rintone_adapt
                 //View V = layoutManager.findViewByPosition(pos.get(0));
                 Rintone_adapter.viewholder V = ((Rintone_adapter)recyclerView.getAdapter()).getViewByPosition(pos.get(0));
                 ImageView returnp = V.iv_play;
-                returnp.setImageResource(R.drawable.play);
+                returnp.setImageResource(R.drawable.play_white);
                 pause();
                 pos.remove(0);
                 iv_play = v.findViewById(R.id.iv_play);
@@ -140,10 +140,10 @@ public class Ringtone_Refresh extends AppCompatActivity implements Rintone_adapt
                     progressDialog.setMessage("please wait");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
-                    iv_play.setImageResource(R.drawable.pause);
+                    iv_play.setImageResource(R.drawable.pause_white);
                     play(index);
                 }else{
-                    iv_play.setImageResource(R.drawable.play);
+                    iv_play.setImageResource(R.drawable.play_white);
                     pause();
                 }
                 //new audio
@@ -191,7 +191,7 @@ public class Ringtone_Refresh extends AppCompatActivity implements Rintone_adapt
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     Toast.makeText(Ringtone_Refresh.this, "completed", Toast.LENGTH_SHORT).show();
-                    iv_play.setImageResource(R.drawable.play);
+                    iv_play.setImageResource(R.drawable.play_white);
                 }
             });
 

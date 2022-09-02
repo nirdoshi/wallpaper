@@ -8,13 +8,10 @@
 
     <androidx.cardview.widget.CardView
 
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="55dp"
         app:cardElevation="5dp"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        android:layout_margin="7dp"
+        android:layout_margin="10dp"
         app:cardUseCompatPadding="false"
-
-        android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -24,7 +21,7 @@
             android:layout_height="300dp"
             android:adjustViewBounds="true"
             android:cropToPadding="false"
-            android:padding="5dp"
+            android:background="@color/activityBG"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/side_nav_bar" />
     </androidx.cardview.widget.CardView>

@@ -8,22 +8,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -44,8 +33,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +42,7 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
     DrawerLayout drawer;
     //DrawerLayout drawer;
     FirebaseDatabase database;
-    DatabaseReference reff,reff2;
+    DatabaseReference reff2;
     recyclercontent recyclercontent;
     Ringtonecontent ringtonecontent;
 
@@ -106,10 +93,10 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        if (savedInstanceState == null){
+                      //  if (savedInstanceState == null){
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_wallpaper()).commit();
                             navigationView.setCheckedItem(R.id.nav_wallpaper);
-                        }
+                      //  }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -193,9 +180,7 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
         });
 
 
-
-
-        drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.big_image);
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -205,12 +190,12 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
         setResult(RESULT_OK,intent);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-
     }
 
 
     @Override
     public void onBackPressed() {
+
         if (drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         }else {
@@ -256,54 +241,10 @@ public class cars extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, @Nullable Intent data) {
-
+        setwallpaper.handle=false;
         MainActivity.key=101;
         toolbar.setTitle("Cars Wallpapers");
 
-        /*
-        super.onActivityResult(requestCode, resultCode, data);
-        final NavigationView navigationView=findViewById(R.id.nav_view);
-        final SharedPreferences sharedPreferences= getSharedPreferences("my_key",MODE_PRIVATE);
-        //active=sharedPreferences.getInt("df",0);
-        array_class.arrayurl.clear();
-        array_class.arrayurl= (ArrayList<com.napps.wallpaper.recyclercontent>) car.clone();
-
-        if (resultCode==RESULT_OK) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_wallpaper())
-                    .commit();
-            navigationView.setCheckedItem(R.id.nav_wallpaper);
-        }
-        else{
-            MediaPlayer mediaPlayer=new MediaPlayer();
-            mediaPlayer.stop();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new fragment_ringtone())
-                    .commit();
-            navigationView.setCheckedItem(R.id.nav_ringtone);
-        }
-    */
-
     }
-
-
-//
-//    @Override
-//    public void onitemclicked2(int index, View v) {
-//        Intent intent=new Intent(cars.this,music_info.class);
-//        intent.putExtra("audiourl",index);
-//        startActivityForResult(intent,2);
-//    }
-//
-//    @Override
-//    public void iv(int index, View v) {
-//        Intent intent=new Intent(cars.this,music_info.class);
-//        intent.putExtra("audiourl",index);
-//        startActivityForResult(intent,3);
-//    }
-//
-//    @Override
-//    public void download(int index, View view) throws IOException {
-//
-//    }
-
 
 }
